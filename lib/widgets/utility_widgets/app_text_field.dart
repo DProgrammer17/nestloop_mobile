@@ -4,17 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 import 'package:nest_loop_mobile/utils/textfield_formatter/amount_formatter.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/keyboard_overlay.dart';
 
-class AppTextfield extends StatefulWidget {
-  const AppTextfield({
+class AppTextField extends StatefulWidget {
+  const AppTextField({
     super.key,
     this.focusNode,
-    this.fieldInfo,
-    this.outerTitle,
-    this.outerContent,
     this.hintText,
     this.initialValue,
     this.controller,
@@ -37,8 +33,6 @@ class AppTextfield extends StatefulWidget {
     this.backgroundColor,
     this.borderRadius,
     this.borderColor,
-    this.showOuterTile = true,
-    this.showInfo = false,
     this.horizontalPadding,
     this.verticalPadding,
     this.expand = false,
@@ -57,10 +51,7 @@ class AppTextfield extends StatefulWidget {
   });
 
   final FocusNode? focusNode;
-  final String? outerTitle;
-  final String? fieldInfo;
   final Widget? suffixOuterTitle;
-  final Widget? outerContent;
   final void Function()? onTapSuffixOuterTitle;
   final String? hintText;
   final String? initialValue;
@@ -89,8 +80,6 @@ class AppTextfield extends StatefulWidget {
   final double? width;
   final EdgeInsets? contentPadding;
   final Color? borderColor;
-  final bool showOuterTile;
-  final bool showInfo;
   final bool expand;
   final bool readOnly;
   final List<TextInputFormatter>? inputFormatter;
@@ -101,10 +90,10 @@ class AppTextfield extends StatefulWidget {
   final VoidCallback? onTap;
 
   @override
-  State<AppTextfield> createState() => _AppTextfieldState();
+  State<AppTextField> createState() => _AppTextFieldState();
 }
 
-class _AppTextfieldState extends State<AppTextfield> {
+class _AppTextFieldState extends State<AppTextField> {
   late OutlineInputBorder inputBorder = const OutlineInputBorder();
   FocusNode focusNode = FocusNode();
 
@@ -139,118 +128,79 @@ class _AppTextfieldState extends State<AppTextfield> {
   Widget build(BuildContext context) {
     inputBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(widget.borderRadius ?? 16.ar),
+      borderSide: BorderSide(
+        color: Colors.transparent,
+      )
     );
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: widget.verticalPadding ?? 8.ah,
         horizontal: widget.horizontalPadding ?? 16.aw,
       ),
-      child: Container(
-        padding: EdgeInsets.fromLTRB(8.aw, 16.ah, 8.aw, 8.aw),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24.ar),
-          color: AppColors.slateCharcoal06,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (widget.showOuterTile) ...[
-              widget.outerContent ??
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.outerTitle!,
-                        style: AppTextStyles.h3Inter(context)
-                            .copyWith(
-                              fontSize: 14.asp,
-                              color: AppColors.slateCharcoalMain,
-                            ),
-                      ),
-                      if (widget.suffixOuterTitle != null) ...[
-                        widget.suffixOuterTitle!,
-                      ],
-                    ],
-                  ),
-              16.sbH,
-            ],
-            SizedBox(
-              height: widget.height,
-              width: widget.width,
-              child: TextFormField(
-                onTap: widget.onTap,
-                focusNode: focusNode,
-                scrollPadding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
+      child: SizedBox(
+        height: widget.height,
+        width: widget.width,
+        child: TextFormField(
+          onTap: widget.onTap,
+          focusNode: focusNode,
+          scrollPadding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          controller: widget.controller,
+          validator: widget.validator,
+          onChanged: widget.onChanged,
+          onEditingComplete: widget.onEditingComplete,
+          initialValue: widget.initialValue,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          keyboardType: widget.inputType,
+          obscureText: widget.obscureText,
+          enabled: widget.enabled,
+          maxLength: widget.maxLength,
+          maxLines: widget.maxLines,
+          minLines: widget.minLines,
+          expands: widget.expand,
+          readOnly: widget.readOnly,
+          style: widget.style,
+          textAlign: TextAlign.left,
+          textInputAction: widget.textInputAction,
+          textAlignVertical: TextAlignVertical.top,
+          inputFormatters:
+          widget.inputFormatter ??
+              [
+                LengthLimitingTextInputFormatter(widget.maxLength),
+                widget.inputType == TextInputType.number &&
+                    widget.hasInputFormat
+                    ? FilteringTextInputFormatter.digitsOnly
+                    : LengthLimitingTextInputFormatter(widget.maxLength),
+                (widget.inputType == TextInputType.number ||
+                    widget.inputType ==
+                        const TextInputType.numberWithOptions(
+                          decimal: true,
+                        )) &&
+                    widget.hasInputFormat
+                    ? AmountTextInputFormatter()
+                    : LengthLimitingTextInputFormatter(widget.maxLength),
+              ],
+          decoration: InputDecoration(
+            contentPadding: widget.contentPadding,
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon,
+            fillColor: widget.backgroundColor ?? AppColors.neutralWhite,
+            filled: true,
+            hintText: widget.hintText,
+            hintStyle:
+            widget.hintStyle ??
+                AppTextStyles.body2RegularInter(context).copyWith(
+                  fontSize: 16.asp,
+                  color: AppColors.slateCharcoal40,
                 ),
-                controller: widget.controller,
-                validator: widget.validator,
-                onChanged: widget.onChanged,
-                onEditingComplete: widget.onEditingComplete,
-                initialValue: widget.initialValue,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                keyboardType: widget.inputType,
-                obscureText: widget.obscureText,
-                enabled: widget.enabled,
-                maxLength: widget.maxLength,
-                maxLines: widget.maxLines,
-                minLines: widget.minLines,
-                expands: widget.expand,
-                readOnly: widget.readOnly,
-                style: widget.style,
-                textAlign: TextAlign.left,
-                textInputAction: widget.textInputAction,
-                textAlignVertical: TextAlignVertical.top,
-                inputFormatters:
-                    widget.inputFormatter ??
-                    [
-                      LengthLimitingTextInputFormatter(widget.maxLength),
-                      widget.inputType == TextInputType.number &&
-                              widget.hasInputFormat
-                          ? FilteringTextInputFormatter.digitsOnly
-                          : LengthLimitingTextInputFormatter(widget.maxLength),
-                      (widget.inputType == TextInputType.number ||
-                                  widget.inputType ==
-                                      const TextInputType.numberWithOptions(
-                                        decimal: true,
-                                      )) &&
-                              widget.hasInputFormat
-                          ? AmountTextInputFormatter()
-                          : LengthLimitingTextInputFormatter(widget.maxLength),
-                    ],
-                decoration: InputDecoration(
-                  contentPadding: widget.contentPadding,
-                  prefixIcon: widget.prefixIcon,
-                  suffixIcon: widget.suffixIcon,
-                  fillColor: widget.backgroundColor ?? AppColors.neutralWhite,
-                  filled: true,
-                  hintText: widget.hintText,
-                  hintStyle:
-                      widget.hintStyle ??
-                      AppTextStyles.body2RegularInter(context).copyWith(
-                        fontSize: 16.asp,
-                        color: AppColors.slateCharcoalMain,
-                      ),
-                  errorText: widget.errorText,
-                  errorStyle: const TextStyle(color: AppColors.failRed),
-                  focusedBorder: inputBorder,
-                  enabledBorder: inputBorder,
-                  border: inputBorder,
-                  counterText: '',
-                ),
-              ),
-            ),
-            if (widget.showInfo) ...[
-              8.sbH,
-              Text(
-                widget.fieldInfo!,
-                style: AppTextStyles.h2Inter(context).copyWith(
-                  fontSize: 13.asp,
-                  color: AppColors.slateCharcoalMain,
-                ),
-              ),
-            ],
-          ],
+            errorText: widget.errorText,
+            errorStyle: const TextStyle(color: AppColors.failRed),
+            focusedBorder: inputBorder,
+            enabledBorder: inputBorder,
+            border: inputBorder,
+            counterText: '',
+          ),
         ),
       ),
     );

@@ -1,0 +1,102 @@
+import 'package:flutter/material.dart';
+import 'package:nest_loop_mobile/core/constants/app_colors.dart';
+import 'package:nest_loop_mobile/core/constants/app_constants.dart';
+import 'package:nest_loop_mobile/core/constants/app_strings.dart';
+import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
+import 'package:nest_loop_mobile/utils/enums/access_level.dart';
+import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
+
+class CareAccessInfoTile extends StatelessWidget {
+  final AccessLevel accessLevel;
+  const CareAccessInfoTile({super.key, required this.accessLevel});
+
+  String infoHeader() {
+    switch (accessLevel) {
+      case AccessLevel.edit:
+        return AppStrings.editAccess;
+
+      case AccessLevel.limitedEdit:
+        return AppStrings.limitEditAccess;
+
+      case AccessLevel.view:
+        return AppStrings.viewOnlyAccess;
+
+      case AccessLevel.none:
+        return AppStrings.noAccess;
+    }
+  }
+
+  String infoSubText() {
+    switch (accessLevel) {
+      case AccessLevel.edit:
+        return AppStrings.viewInfoAndEdit;
+
+      case AccessLevel.limitedEdit:
+        return AppStrings.viewSpecificInfoAndEdit;
+
+      case AccessLevel.view:
+        return AppStrings.viewSpecificInfo;
+
+      case AccessLevel.none:
+        return AppStrings.noAccess;
+    }
+  }
+  
+  Widget infoIcon() {
+    switch (accessLevel) {
+      case AccessLevel.edit:
+        return Icon(Icons.mode_edit_outlined, size: 24.ar, color: AppColors.slateCharcoal80,);
+
+      case AccessLevel.limitedEdit:
+        return Icon(Icons.mode_edit_outlined, size: 24.ar, color: AppColors.slateCharcoal80,);
+
+      case AccessLevel.view:
+        return Icon(Icons.visibility_outlined, size: 24.ar, color: AppColors.slateCharcoal80,);
+
+      case AccessLevel.none:
+        return Icon(Icons.block, size: 24.ar, color: AppColors.slateCharcoal80,);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10.ah, horizontal: 14.aw),
+      decoration: BoxDecoration(
+        color: AppColors.baseBackground,
+        borderRadius: BorderRadius.circular(16.ar),
+        border: Border(
+          top: BorderSide(width: 1.aw, color: AppColors.pastelGreen),
+          bottom: BorderSide(width: 1.aw, color: AppColors.pastelGreen),
+          left: BorderSide(width: 4.aw, color: AppColors.pastelGreen),
+          right: BorderSide(width: 1.aw, color: AppColors.pastelGreen),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          infoIcon(),
+          16.sbW,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                infoHeader(),
+                style: AppTextStyles.h3Inter(context).copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              6.sbH,
+              Text(
+                infoSubText(),
+                style: AppTextStyles.body2RegularInter(context).copyWith(
+                  color: AppColors.slateCharcoal60,
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}

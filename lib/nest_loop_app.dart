@@ -28,7 +28,7 @@ class NestLoopApp extends StatelessWidget{
             theme: ThemeData(
               useMaterial3: false,
               primaryColor: AppColors.primaryOrange,
-              scaffoldBackgroundColor: AppColors.neutralWhite,
+              scaffoldBackgroundColor: AppColors.baseBackground,
               appBarTheme: globalAppBarTheme,
             ),
             debugShowCheckedModeBanner: false,

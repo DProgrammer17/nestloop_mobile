@@ -20,7 +20,7 @@ class _SizeConstant {
   static const double _storyBarRadius = 22;
   static const double _toolBarHeight = 45;
   static const double _tileBorderRadius = 12;
-  static const double _lowerBoarderRadius = 8;
+  static const double _lowerBoarderRadius = 16;
   static const double _horizontalPadding = 20;
 
   double get storyBarRadius => _storyBarRadius.ar;

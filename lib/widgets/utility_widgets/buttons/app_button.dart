@@ -12,6 +12,8 @@ class AppButton extends StatelessWidget {
   final Color? textColor;
   final Color? borderColor;
   final Widget? buttonIcon;
+  final Widget? prefixButtonIcon;
+  final Widget? titleContent;
   final String title;
   final double? height;
   final double? verticalPadding;
@@ -27,6 +29,8 @@ class AppButton extends StatelessWidget {
     this.onTap,
     this.buttonColor,
     this.buttonIcon,
+    this.prefixButtonIcon,
+    this.titleContent,
     this.textColor,
     this.borderColor,
     this.borderWidth,
@@ -71,10 +75,9 @@ class AppButton extends StatelessWidget {
                     child: loading
                         ? Theme(
                             data: ThemeData(
-                              cupertinoOverrideTheme:
-                                  const CupertinoThemeData(
-                                    brightness: Brightness.dark,
-                                  ),
+                              cupertinoOverrideTheme: const CupertinoThemeData(
+                                brightness: Brightness.dark,
+                              ),
                             ),
                             child: SizedBox(
                               width: 20.aw,
@@ -87,27 +90,33 @@ class AppButton extends StatelessWidget {
                               vertical: 8.ah,
                               horizontal: 24.aw,
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  title,
-                                  textAlign: TextAlign.center,
-                                  style: AppTextStyles.h3Inter(context)
-                                      .copyWith(
-                                        color:
-                                            textColor ??
-                                            AppColors.neutralWhite,
-                                      ),
+                            child:
+                                titleContent ??
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    if (prefixButtonIcon != null) ...[
+                                      prefixButtonIcon!,
+                                      8.sbW,
+                                    ],
+                                    Text(
+                                      title,
+                                      textAlign: TextAlign.center,
+                                      style: AppTextStyles.h3Inter(context)
+                                          .copyWith(
+                                            color:
+                                                textColor ??
+                                                AppColors.neutralWhite,
+                                          ),
+                                    ),
+                                    if (buttonIcon != null) ...[
+                                      8.sbW,
+                                      buttonIcon!,
+                                    ],
+                                  ],
                                 ),
-                                if (buttonIcon != null) ...[
-                                  8.sbW,
-                                  buttonIcon!,
-                                ],
-                              ],
-                            ),
                           ),
                   ),
                 ),
