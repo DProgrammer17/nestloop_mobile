@@ -13,6 +13,7 @@
     <!-- Legacy support for older devices -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:label="nest_loop_mobile"

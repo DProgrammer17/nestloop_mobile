@@ -11,6 +11,8 @@ class CarerDurationSelectorTile extends StatelessWidget {
   final Widget? leading;
   final IconData? leadingIcon;
   final double? iconSize;
+  final double? verticalPadding;
+  final double? horizontalPadding;
   final String title;
   final String subtitle;
   final ValueChanged onTap;
@@ -21,6 +23,8 @@ class CarerDurationSelectorTile extends StatelessWidget {
     this.leading,
     this.leadingIcon,
     this.iconSize,
+    this.verticalPadding,
+    this.horizontalPadding,
     required this.title,
     required this.subtitle,
     required this.onTap,
@@ -31,7 +35,7 @@ class CarerDurationSelectorTile extends StatelessWidget {
     return InkWell(
       onTap: ()=> onTap.call(durationType),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16.ah, horizontal: 16.aw),
+        padding: EdgeInsets.symmetric(vertical: (verticalPadding ?? 16).ah, horizontal: (horizontalPadding ?? 16).aw),
         decoration: BoxDecoration(
           color: AppColors.baseBackground,
           borderRadius: BorderRadius.circular(16.ar),

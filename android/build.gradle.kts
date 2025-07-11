@@ -16,11 +16,11 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 subprojects {
-    project.configurations.all {
-        resolutionStrategy.eachDependency { details ->
-            if (details.requested.group == 'com.android.support'
-                && !details.requested.name.contains('multidex') ) {
-                details.useVersion "27.1.1"
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "com.android.support" &&
+                !requested.name.contains("multidex")) {
+                useVersion("27.1.1")
             }
         }
     }

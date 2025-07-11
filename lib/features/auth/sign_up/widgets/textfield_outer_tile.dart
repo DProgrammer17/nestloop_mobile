@@ -6,11 +6,13 @@ import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 class TextFieldOuterTile extends StatelessWidget {
   final Widget leading;
   final String title;
+  final TextStyle? titleStyle;
   final Widget? suffixIcon;
   const TextFieldOuterTile({
     super.key,
     required this.leading,
     required this.title,
+    this.titleStyle,
     this.suffixIcon,
   });
 
@@ -26,7 +28,7 @@ class TextFieldOuterTile extends StatelessWidget {
             10.sbW,
             Text(
               title,
-              style: AppTextStyles.h3Inter(context).copyWith(fontSize: 14.asp),
+              style: titleStyle ?? AppTextStyles.h3Inter(context).copyWith(fontSize: 14.asp),
             ),
           ],
         ),

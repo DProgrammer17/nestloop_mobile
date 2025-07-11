@@ -13,7 +13,10 @@ class CasingAppTextfield extends StatefulWidget {
     super.key,
     this.focusNode,
     this.fieldInfo,
+    this.fieldInfoContent,
     this.outerTitle = '',
+    this.outerTitleStyle,
+    this.fieldInfoStyle,
     this.outerContent,
     this.hintText,
     this.initialValue,
@@ -45,11 +48,13 @@ class CasingAppTextfield extends StatefulWidget {
     this.readOnly = false,
     this.height,
     this.width,
+    this.outerTileSpacing,
     this.contentPadding,
     this.inputFormatter,
     this.keyboardUpArrowAction,
     this.keyboardDownArrowAction,
     this.keyboardDoneAction,
+    this.fieldInfoAlignment,
     this.onTap,
     this.hintStyle,
     this.style,
@@ -61,6 +66,7 @@ class CasingAppTextfield extends StatefulWidget {
   final String? fieldInfo;
   final Widget? suffixOuterTitle;
   final Widget? outerContent;
+  final Widget? fieldInfoContent;
   final void Function()? onTapSuffixOuterTitle;
   final String? hintText;
   final String? initialValue;
@@ -75,6 +81,8 @@ class CasingAppTextfield extends StatefulWidget {
   final Widget? prefixIcon;
   final TextStyle? hintStyle;
   final TextStyle? style;
+  final TextStyle? outerTitleStyle;
+  final TextStyle? fieldInfoStyle;
   final String? errorText;
   final bool? enabled;
   final int? maxLength;
@@ -87,6 +95,7 @@ class CasingAppTextfield extends StatefulWidget {
   final double? borderRadius;
   final double? height;
   final double? width;
+  final double? outerTileSpacing;
   final EdgeInsets? contentPadding;
   final Color? borderColor;
   final bool showOuterTile;
@@ -95,6 +104,7 @@ class CasingAppTextfield extends StatefulWidget {
   final bool readOnly;
   final List<TextInputFormatter>? inputFormatter;
   final bool textFieldIsRequired;
+  final Alignment? fieldInfoAlignment;
   final VoidCallback? keyboardDownArrowAction;
   final VoidCallback? keyboardUpArrowAction;
   final VoidCallback? keyboardDoneAction;
@@ -166,7 +176,7 @@ class _CasingAppTextfieldState extends State<CasingAppTextfield> {
                       children: [
                         Text(
                           widget.outerTitle!,
-                          style: AppTextStyles.h3Inter(context)
+                          style: widget.outerTitleStyle ?? AppTextStyles.h3Inter(context)
                               .copyWith(
                                 fontSize: 14.asp,
                                 color: AppColors.slateCharcoalMain,
@@ -178,7 +188,7 @@ class _CasingAppTextfieldState extends State<CasingAppTextfield> {
                       ],
                     ),
               ),
-              10.sbH,
+              (widget.outerTileSpacing ?? 10).sbH,
             ],
             SizedBox(
               height: widget.height,
@@ -248,11 +258,17 @@ class _CasingAppTextfieldState extends State<CasingAppTextfield> {
             ),
             if (widget.showInfo) ...[
               8.sbH,
-              Text(
-                widget.fieldInfo!,
-                style: AppTextStyles.h2Inter(context).copyWith(
-                  fontSize: 13.asp,
-                  color: AppColors.slateCharcoalMain,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.aw),
+                child: widget.fieldInfoContent ?? Align(
+                  alignment: widget.fieldInfoAlignment ?? Alignment.centerLeft,
+                  child: Text(
+                    widget.fieldInfo!,
+                    style: widget.fieldInfoStyle ?? AppTextStyles.h2Inter(context).copyWith(
+                      fontSize: 13.asp,
+                      color: AppColors.slateCharcoalMain,
+                    ),
+                  ),
                 ),
               ),
             ],

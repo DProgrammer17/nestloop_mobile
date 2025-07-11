@@ -39,6 +39,8 @@ class ProfileNotifier extends Notifier<ProfileModel> {
     state = state.copyWith(selectedAccessType: type);
   }
 
+  void selectorUpdateAccessType(String type)=> state = state.copyWith(selectedAccessType: type);
+
   void updateAccessDuration(AccessDuration duration) {
     state = state.copyWith(selectedAccessDuration: () => duration);
     if (duration == AccessDuration.timeLimited) {

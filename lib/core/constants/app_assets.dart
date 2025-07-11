@@ -41,4 +41,6 @@ abstract class SvgAssets {
   static const birthdayIcon = 'assets/svg/birthday_icon.svg';
   static const securityIcon = 'assets/svg/security_icon.svg';
   static const keyIcon = 'assets/svg/key_icon.svg';
+  static const lightbulbIcon = 'assets/svg/lightbulb_icon.svg';
+  static const invitationSentIcon = 'assets/svg/invitation_sent_icon.svg';
 }

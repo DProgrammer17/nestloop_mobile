@@ -207,7 +207,7 @@ class _ManageCareAccessWidgetState
                     options: ref.watch(profilesNotifier).accessTypes,
                     onTap: (value) => ref
                         .watch(profilesNotifier.notifier)
-                        .updateAccessType(value),
+                        .selectorUpdateAccessType(value),
                   ),
                 ),
               ),

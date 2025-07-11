@@ -158,6 +158,21 @@ abstract class AppStrings{
   static const sixMonth = '6 Month';
   static const custom = 'Custom';
   static const saveChanges = 'Save Changes';
+  static const addCarer = 'Add Carer';
+  static const addCarerSubtitle = 'Enter an email address or username of the person you’d like to add to Emma’s care team.';
+  static const emailOrUsername = 'Email or Username';
+  static const emailOrUsernameHint = 'Enter email or username';
+  static const suggestedContacts = 'Suggested Contacts';
+  static const personalMessage = 'Personal Message';
+  static const addPersonalNote = 'Add a personal note to your invitation';
+  static const optional = 'Optional';
+  static const cancel = 'Cancel';
+  static const setPermissions = 'Set Permissions';
+  static const accessDurationSubtitle = 'Define when access begins and ends. You can change or extend this later';
+  static String textFieldLengthCount({required int currentCount, int? totalCount}) => '$currentCount/${(totalCount ?? 64.toString())}';
+  static const noContactsAvailable = 'No Contacts Available';
+  static const invitationSent = 'Invitation Sent';
+  static String nameWillReceiveEmail(String name) => '$name will receive an email with instructions to join Morgan’s care team.';
 }
 
 abstract class ErrorStrings{

@@ -5,7 +5,9 @@ import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/features/profiles/state/parent_model.dart';
 import 'package:nest_loop_mobile/features/profiles/state/profile_notifier.dart';
+import 'package:nest_loop_mobile/features/profiles/ui/add_carer/add_carer_page.dart';
 import 'package:nest_loop_mobile/features/profiles/widgets/care_team_info_tile.dart';
+import 'package:nest_loop_mobile/utils/extensions/navigation.dart';
 import 'package:nest_loop_mobile/widgets/page_widgets/floating_button_scaffold.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_button.dart';
 
@@ -29,7 +31,8 @@ class _CareTeamPageState extends ConsumerState<CareTeamPage> {
   Widget build(BuildContext context) {
     return FloatingWidgetScaffold(
       floatingWidget: AppButton(
-        title: AppStrings.addChild,
+        onTap: ()=> context.pushSuper(AddCarerPage()),
+        title: AppStrings.newCarer,
         prefixButtonIcon: Icon(
           Icons.person_add_alt_1_outlined,
           size: 22.ar,
