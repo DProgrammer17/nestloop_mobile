@@ -7,10 +7,11 @@ import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/features/profiles/state/parent_model.dart';
 import 'package:nest_loop_mobile/features/profiles/state/profile_notifier.dart';
 import 'package:nest_loop_mobile/features/profiles/widgets/carer_duration_selector_tile.dart';
-import 'package:nest_loop_mobile/utils/enums/access_duration.dart';
+import 'package:nest_loop_mobile/network/api/child_profiles/response/get_child_care_provider_response.dart';
+import 'package:nest_loop_mobile/network/net_utils/enums/access_durations.dart';
+import 'package:nest_loop_mobile/network/net_utils/enums/access_levels.dart';
 import 'package:nest_loop_mobile/utils/extensions/navigation.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_button.dart';
@@ -19,7 +20,7 @@ import 'package:nest_loop_mobile/widgets/utility_widgets/tiles/selector_tab_tile
 import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 
 class ManageCareAccessWidget extends ConsumerStatefulWidget {
-  final CareTeamModel model;
+  final ChildCareProviderResponse model;
   const ManageCareAccessWidget({super.key, required this.model});
 
   @override
@@ -35,10 +36,12 @@ class _ManageCareAccessWidgetState
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(profilesNotifier.notifier)
-          .updateAccessType(widget.model.accessLevel);
+          .updateAccessType(widget.model.accessType ?? AccessLevels.none);
       ref
           .read(profilesNotifier.notifier)
-          .updateAccessDuration(widget.model.accessDuration);
+          .updateAccessDuration(
+            widget.model.accessDuration?.type ?? AccessDurations.none,
+          );
     });
   }
 
@@ -64,7 +67,9 @@ class _ManageCareAccessWidgetState
                   ),
                   4.sbW,
                   Text(
-                    AppStrings.accessFor(widget.model.name),
+                    AppStrings.accessFor(
+                      widget.model.careProvider?.fullName ?? '',
+                    ),
                     style: AppTextStyles.body2RegularInter(
                       context,
                     ).copyWith(fontWeight: FontWeight.w500),
@@ -108,7 +113,7 @@ class _ManageCareAccessWidgetState
         Padding(
           padding: EdgeInsets.only(left: 12.aw),
           child: Text(
-            AppStrings.whatCanSee(widget.model.name),
+            AppStrings.whatCanSee(widget.model.careProvider?.fullName ?? ''),
             style: AppTextStyles.body2RegularInter(context).copyWith(
               color: AppColors.slateCharcoal60,
               fontWeight: FontWeight.w600,
@@ -162,7 +167,7 @@ class _ManageCareAccessWidgetState
         Padding(
           padding: EdgeInsets.only(left: 12.aw),
           child: Text(
-            AppStrings.whatCanAccess(widget.model.name),
+            AppStrings.whatCanAccess(widget.model.careProvider?.fullName ?? ''),
             style: AppTextStyles.body2RegularInter(context).copyWith(
               color: AppColors.slateCharcoal60,
               fontWeight: FontWeight.w600,
@@ -239,8 +244,8 @@ class _ManageCareAccessWidgetState
                     CarerDurationSelectorTile(
                       selectedDuration:
                           ref.watch(profilesNotifier).selectedAccessDuration ??
-                          AccessDuration.none,
-                      durationType: AccessDuration.timeLimited,
+                          AccessDurations.none,
+                      durationType: AccessDurations.expiry,
                       leadingIcon: Icons.calendar_month,
                       title: AppStrings.timeLimited,
                       subtitle: AppStrings.accessEndSpecificDate,
@@ -252,8 +257,8 @@ class _ManageCareAccessWidgetState
                     CarerDurationSelectorTile(
                       selectedDuration:
                           ref.watch(profilesNotifier).selectedAccessDuration ??
-                          AccessDuration.none,
-                      durationType: AccessDuration.ongoing,
+                          AccessDurations.none,
+                      durationType: AccessDurations.ongoing,
                       leadingIcon: Icons.all_inclusive_outlined,
                       title: AppStrings.ongoing,
                       subtitle: AppStrings.noAutomaticExpiration,
@@ -281,7 +286,8 @@ class _ManageCareAccessWidgetState
                             onTap: () => ref
                                 .watch(profilesNotifier.notifier)
                                 .updateTimeOption(
-                                  ref
+                                  context: context,
+                                  time: ref
                                       .watch(profilesNotifier)
                                       .timeOptions
                                       .elementAt(index),
@@ -383,8 +389,9 @@ class _ManageCareAccessWidgetState
         32.sbH,
         Center(
           child: AppButton(
-            onTap: ()=> context.popSuper(),
-            title: AppStrings.saveChanges,),
+            onTap: () => context.popSuper(),
+            title: AppStrings.saveChanges,
+          ),
         ),
         32.sbH,
       ],

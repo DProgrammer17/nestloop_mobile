@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
+import 'package:nest_loop_mobile/core/utility_state/docs/doc_info_model.dart';
 import 'package:nest_loop_mobile/core/utility_state/docs/upload_doc_model.dart';
 import 'package:nest_loop_mobile/utils/permissions/permissions_handler.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/app_toast.dart';
@@ -20,7 +21,7 @@ class UploadDocNotifier extends Notifier<UploadDocModel> {
   @override
   UploadDocModel build() => UploadDocModel();
 
-  void selectFile(BuildContext context) async {
+  Future<void> selectFile(BuildContext context) async {
     final permission = await PermissionHandler.checkPermission(
       context: context,
       permission: Permission.mediaLibrary,
@@ -44,10 +45,7 @@ class UploadDocNotifier extends Notifier<UploadDocModel> {
       File file = File(result.files.single.path!);
       if (context.mounted) {
         if (fileSizeChecker(context, file)) {
-          state = state.copyWith(
-            file: () => file,
-            fileName: () => file.uri.pathSegments.last,
-          );
+          addToDocs(file: file, fileName: file.uri.pathSegments.last);
           return;
         }
       }
@@ -75,10 +73,30 @@ class UploadDocNotifier extends Notifier<UploadDocModel> {
     return true;
   }
 
-  void removeSelectedFile() =>
-      state = state.copyWith(file: () => null, fileName: () => null);
+  Future<void> addToDocs({
+    required File file,
+    required String? fileName,
+  }) async {
+    List<DocInfoModel> interimList = state.files.toList();
+    if (interimList.any((e) => (e.docName).contains(fileName ?? ''))) {
+      interimList = interimList.toList()
+        ..removeWhere((e) => (e.docName).contains(fileName ?? ''));
+    }
+    interimList = interimList.toList()
+      ..add(DocInfoModel(doc: file, docName: fileName ?? ''));
+    state = state.copyWith(files: interimList.toList());
+  }
+
+  Future<void> removeSelectedFile(String fileName) async{
+    List<DocInfoModel> interimList = state.files.toList();
+    interimList = interimList.toList()
+      ..removeWhere((e) => (e.docName).contains(fileName ?? ''));
+    state = state.copyWith(files: interimList.toList());
+  }
 
   void openFile(File file) {
     OpenFile.open(file.path);
   }
+
+  void clearDocsList()=> state = state.copyWith(files: const[]);
 }

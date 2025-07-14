@@ -54,11 +54,14 @@ class AppSnackBarTile extends StatelessWidget {
             color: iconColor(type),
           ),
           16.sbW,
-          Text(
-            message,
-            style: AppTextStyles.h3Inter(
-              context,
-            ).copyWith(fontSize: 14.asp, color: AppColors.textGrey2),
+          SizedBox(
+            width: 220.aw,
+            child: Text(
+              message,
+              style: AppTextStyles.h3Inter(
+                context,
+              ).copyWith(fontSize: 14.asp, color: AppColors.textGrey2),
+            ),
           ),
           const Spacer(),
           Icon(CupertinoIcons.xmark, size: 19.ar, color: AppColors.textGrey2),

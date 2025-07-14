@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nest_loop_mobile/core/constants/app_assets.dart';
 import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/features/auth/sign_up/state/child_profile/model/child_profile_model.dart';
+import 'package:nest_loop_mobile/network/api/user/response/get_user_profile_response.dart';
 import 'package:nest_loop_mobile/utils/extensions/string_extensions.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_button.dart';
@@ -14,7 +13,7 @@ import 'package:nest_loop_mobile/widgets/utility_widgets/tiles/info_tile.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 
 class CareDetailsPage extends StatelessWidget {
-  final ChildProfileModel model;
+  final ChildData model;
   const CareDetailsPage({super.key, required this.model});
 
   @override
@@ -22,13 +21,14 @@ class CareDetailsPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          if (model.triggers.isNotBlank || model.allergies.isNotBlank) ...[
+          if ((model.triggers != null && model.triggers!.isNotEmpty) ||
+              (model.allergies != null && model.allergies!.isNotEmpty)) ...[
             WidgetCasing(
               outerContent: SizedBox.shrink(),
               padding: EdgeInsets.symmetric(vertical: 16.ah, horizontal: 16.aw),
               content: Column(
                 children: [
-                  if (model.triggers.isNotBlank) ...[
+                  if (model.triggers != null && model.triggers!.isNotEmpty) ...[
                     InfoTile(
                       headerIcon: SvgPicture.asset(
                         SvgAssets.triggersIcon,
@@ -36,10 +36,11 @@ class CareDetailsPage extends StatelessWidget {
                         color: AppColors.slateCharcoal60,
                       ),
                       headerTitle: AppStrings.triggers,
-                      info: model.triggers!,
+                      info: (model.triggers ?? []).join(', ').toCamelCase,
                     ),
                   ],
-                  if (model.allergies.isNotBlank) ...[
+                  if (model.allergies != null &&
+                      model.allergies!.isNotEmpty) ...[
                     16.sbH,
                     InfoTile(
                       headerIcon: SvgPicture.asset(
@@ -48,21 +49,23 @@ class CareDetailsPage extends StatelessWidget {
                         color: AppColors.slateCharcoal60,
                       ),
                       headerTitle: AppStrings.allergies,
-                      info: model.allergies!,
+                      info: (model.allergies ?? []).join(', ').toCamelCase,
                     ),
                   ],
                 ],
               ),
             ),
           ],
-          if (model.therapyGoals.isNotBlank || model.dailyRoutine.isNotBlank) ...[
+          if ((model.therapyGoals != null && model.therapyGoals!.isNotEmpty) ||
+              (model.dailyRoutine != null &&
+                  model.dailyRoutine!.isNotEmpty)) ...[
             14.sbH,
             WidgetCasing(
               outerContent: SizedBox.shrink(),
               padding: EdgeInsets.symmetric(vertical: 16.ah, horizontal: 16.aw),
               content: Column(
                 children: [
-                  if (model.therapyGoals.isNotBlank) ...[
+                  if (model.therapyGoals!.isNotEmpty) ...[
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -84,7 +87,7 @@ class CareDetailsPage extends StatelessWidget {
                             ),
                             4.sbH,
                             Text(
-                              model.therapyGoals!,
+                              (model.therapyGoals ?? []).join(', ').toCamelCase,
                               style: AppTextStyles.body2RegularInter(
                                 context,
                               ).copyWith(color: AppColors.slateCharcoal60),
@@ -94,7 +97,8 @@ class CareDetailsPage extends StatelessWidget {
                       ],
                     ),
                   ],
-                  if (model.dailyRoutine.isNotBlank) ...[
+                  if (model.dailyRoutine != null &&
+                      model.dailyRoutine!.isNotEmpty) ...[
                     14.sbH,
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,10 +119,7 @@ class CareDetailsPage extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.only(left: 4.aw),
                               child: Text(
-                                model.dailyRoutine!
-                                    .replaceAll(',', '')
-                                    .replaceAll('\n', '\n⚈ ')
-                                    .replaceAll(' ', '\n⚈ '),
+                                '⚈  ${(model.dailyRoutine ?? []).join(',').toCamelCase.replaceAll(',', '\n⚈ ')}',
                                 style: AppTextStyles.body2RegularInter(
                                   context,
                                 ).copyWith(color: AppColors.slateCharcoal60),

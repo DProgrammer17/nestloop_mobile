@@ -1,21 +1,11 @@
-import 'dart:io';
+import 'package:nest_loop_mobile/core/utility_state/docs/doc_info_model.dart';
 
 class UploadDocModel {
-  final File? file;
-  final String? fileName;
+  final List<DocInfoModel> files;
 
-  const UploadDocModel({
-    this.file,
-    this.fileName,
-});
+  const UploadDocModel({this.files = const []});
 
-  UploadDocModel copyWith({
-    File? Function()? file,
-    String? Function()? fileName,
-}){
-    return UploadDocModel(
-      file: file != null ? file() : this.file,
-      fileName: fileName != null ? fileName() : this.fileName,
-    );
+  UploadDocModel copyWith({List<DocInfoModel>? files}) {
+    return UploadDocModel(files: files ?? this.files);
   }
 }

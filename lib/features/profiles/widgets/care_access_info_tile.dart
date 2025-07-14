@@ -3,58 +3,66 @@ import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/utils/enums/access_level.dart';
+import 'package:nest_loop_mobile/network/net_utils/enums/access_levels.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 
 class CareAccessInfoTile extends StatelessWidget {
-  final AccessLevel accessLevel;
+  final AccessLevels accessLevel;
   const CareAccessInfoTile({super.key, required this.accessLevel});
 
   String infoHeader() {
     switch (accessLevel) {
-      case AccessLevel.edit:
-        return AppStrings.editAccess;
-
-      case AccessLevel.limitedEdit:
+      case AccessLevels.editAccess:
         return AppStrings.limitEditAccess;
 
-      case AccessLevel.view:
+      case AccessLevels.viewAccess:
         return AppStrings.viewOnlyAccess;
 
-      case AccessLevel.none:
+      case AccessLevels.noAccess:
+        return AppStrings.noAccess;
+
+      case AccessLevels.none:
         return AppStrings.noAccess;
     }
   }
 
   String infoSubText() {
     switch (accessLevel) {
-      case AccessLevel.edit:
-        return AppStrings.viewInfoAndEdit;
-
-      case AccessLevel.limitedEdit:
+      case AccessLevels.editAccess:
         return AppStrings.viewSpecificInfoAndEdit;
 
-      case AccessLevel.view:
+      case AccessLevels.viewAccess:
         return AppStrings.viewSpecificInfo;
 
-      case AccessLevel.none:
+      case AccessLevels.noAccess:
+        return AppStrings.noAccess;
+
+      case AccessLevels.none:
         return AppStrings.noAccess;
     }
   }
-  
+
   Widget infoIcon() {
     switch (accessLevel) {
-      case AccessLevel.edit:
-        return Icon(Icons.mode_edit_outlined, size: 24.ar, color: AppColors.slateCharcoal80,);
+      case AccessLevels.editAccess:
+        return Icon(
+          Icons.mode_edit_outlined,
+          size: 24.ar,
+          color: AppColors.slateCharcoal80,
+        );
 
-      case AccessLevel.limitedEdit:
-        return Icon(Icons.mode_edit_outlined, size: 24.ar, color: AppColors.slateCharcoal80,);
+      case AccessLevels.viewAccess:
+        return Icon(
+          Icons.visibility_outlined,
+          size: 24.ar,
+          color: AppColors.slateCharcoal80,
+        );
 
-      case AccessLevel.view:
-        return Icon(Icons.visibility_outlined, size: 24.ar, color: AppColors.slateCharcoal80,);
+      case AccessLevels.noAccess:
+        return Icon(Icons.block, size: 24.ar, color: AppColors.slateCharcoal80);
 
-      case AccessLevel.none:
-        return Icon(Icons.block, size: 24.ar, color: AppColors.slateCharcoal80,);
+      case AccessLevels.none:
+        return Icon(Icons.block, size: 24.ar, color: AppColors.slateCharcoal80);
     }
   }
 
@@ -82,19 +90,19 @@ class CareAccessInfoTile extends StatelessWidget {
             children: [
               Text(
                 infoHeader(),
-                style: AppTextStyles.h3Inter(context).copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+                style: AppTextStyles.h3Inter(
+                  context,
+                ).copyWith(fontWeight: FontWeight.w500),
               ),
               6.sbH,
               Text(
                 infoSubText(),
-                style: AppTextStyles.body2RegularInter(context).copyWith(
-                  color: AppColors.slateCharcoal60,
-                ),
+                style: AppTextStyles.body2RegularInter(
+                  context,
+                ).copyWith(color: AppColors.slateCharcoal60),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

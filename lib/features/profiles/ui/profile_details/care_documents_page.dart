@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/utility_state/docs/upload_doc_notifier.dart';
-import 'package:nest_loop_mobile/features/auth/sign_up/state/child_profile/model/child_profile_model.dart';
+import 'package:nest_loop_mobile/network/api/user/response/get_user_profile_response.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_button.dart';
-import 'package:nest_loop_mobile/widgets/utility_widgets/docs/document_info_tile.dart';
+import 'package:nest_loop_mobile/widgets/utility_widgets/docs/document_view_info_tile.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/docs/tap_to_upload_tile.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 
 class CareDocumentsPage extends ConsumerWidget {
-  final ChildProfileModel model;
+  final ChildData model;
   const CareDocumentsPage({super.key, required this.model});
 
   @override
@@ -21,17 +20,17 @@ class CareDocumentsPage extends ConsumerWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          if (model.childDocs.isNotEmpty) ...[
+          if (model.documents != null && model.documents!.isNotEmpty) ...[
             WidgetCasing(
               outerContent: SizedBox.shrink(),
               padding: EdgeInsets.symmetric(vertical: 16.ah, horizontal: 16.aw),
               content: Column(
                 spacing: 10.ah,
                 children: List.generate(
-                  model.childDocs.length,
-                  (index) => DocumentInfoTile(
-                    doc: model.childDocs.elementAt(index).doc,
-                    docName: model.childDocs.elementAt(index).docName,
+                  model.documents!.length,
+                  (index) => DocumentViewInfoTile(
+                    fileUrl: model.documents!.elementAt(index).url,
+                    docName: model.documents!.elementAt(index).name ?? '',
                     removeAction: () {},
                   ),
                 ),

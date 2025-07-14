@@ -8,12 +8,19 @@ import 'package:nest_loop_mobile/core/utility_state/docs/upload_doc_notifier.dar
 class TapToUploadTile extends ConsumerWidget {
   final Color? highlightColor;
   final Color? textColor;
-  const TapToUploadTile({super.key, this.highlightColor, this.textColor});
+  final VoidCallback? onTap;
+  const TapToUploadTile({super.key, this.highlightColor, this.textColor, this.onTap,});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () => ref.watch(uploadDocNotifier.notifier).selectFile(context),
+      onTap: () {
+        if(onTap != null){
+          onTap?.call();
+          return;
+        }
+        ref.watch(uploadDocNotifier.notifier).selectFile(context);
+      },
       child: RichText(
         text: TextSpan(
           text: AppStrings.tabToUpload,

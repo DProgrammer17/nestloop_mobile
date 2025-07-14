@@ -7,39 +7,21 @@ import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/features/auth/sign_up/state/child_profile/child_profile_notifier.dart';
-import 'package:nest_loop_mobile/features/auth/sign_up/state/child_profile/model/child_profile_model.dart';
-import 'package:nest_loop_mobile/features/auth/sign_up/widgets/profile_image_widget.dart';
 import 'package:nest_loop_mobile/features/profiles/state/profile_notifier.dart';
 import 'package:nest_loop_mobile/features/profiles/ui/profile_details/care_details_page.dart';
 import 'package:nest_loop_mobile/features/profiles/ui/profile_details/care_documents_page.dart';
 import 'package:nest_loop_mobile/features/profiles/ui/profile_details/care_team_page.dart';
 import 'package:nest_loop_mobile/features/profiles/ui/profile_details/child_overview_page.dart';
-import 'package:nest_loop_mobile/utils/extensions/string_extensions.dart';
-import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
+import 'package:nest_loop_mobile/network/api/user/response/get_user_profile_response.dart';
 import 'package:nest_loop_mobile/widgets/page_widgets/app_scaffold.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_back_button.dart';
-import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_button.dart';
-import 'package:nest_loop_mobile/widgets/utility_widgets/tiles/info_tile.dart';
-import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 
-class ProfileDetails extends ConsumerStatefulWidget {
-  final ChildProfileModel model;
+class ProfileDetails extends ConsumerWidget {
+  final ChildData model;
   const ProfileDetails({super.key, required this.model});
 
   @override
-  ConsumerState<ProfileDetails> createState() => _ProfileDetailsState();
-}
-
-class _ProfileDetailsState extends ConsumerState<ProfileDetails>
-    with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
       length: 4,
       child: AppScaffold(
@@ -47,7 +29,7 @@ class _ProfileDetailsState extends ConsumerState<ProfileDetails>
         padding: EdgeInsets.zero,
         appBarLeadingContent: AppBackButton(size: 28.ar),
         appBarContent: Text(
-          widget.model.name,
+          model.name ?? '',
           style: AppTextStyles.h4Inter(
             context,
           ).copyWith(fontWeight: FontWeight.w700),
@@ -118,10 +100,10 @@ class _ProfileDetailsState extends ConsumerState<ProfileDetails>
           color: AppColors.baseBackground,
           child: TabBarView(
             children: [
-              ChildOverviewPage(model: widget.model),
-              CareDetailsPage(model: widget.model),
-              CareDocumentsPage(model: widget.model),
-              CareTeamPage(),
+              ChildOverviewPage(model: model),
+              CareDetailsPage(model: model),
+              CareDocumentsPage(model: model),
+              CareTeamPage(childProfileID: model.id ?? ''),
             ],
           ),
         ),

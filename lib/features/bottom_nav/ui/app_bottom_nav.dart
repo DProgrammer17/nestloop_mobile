@@ -7,15 +7,30 @@ import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
 import 'package:nest_loop_mobile/features/bottom_nav/state/bottom_nav_notifier.dart';
+import 'package:nest_loop_mobile/features/profiles/state/profile_notifier.dart';
 import 'package:nest_loop_mobile/widgets/page_widgets/app_scaffold.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/empty_appbar.dart';
 
-class AppBottomNav extends ConsumerWidget {
+class AppBottomNav extends ConsumerStatefulWidget {
   final int? currentIndex;
   const AppBottomNav({super.key, this.currentIndex});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AppBottomNav> createState() => _AppBottomNavState();
+}
+
+class _AppBottomNavState extends ConsumerState<AppBottomNav> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(profilesNotifier.notifier).getChildProfiles(context);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AppScaffold(
       padding: EdgeInsets.zero,
       appBar: EmptyAppBar(),
@@ -27,7 +42,7 @@ class AppBottomNav extends ConsumerWidget {
         currentIndex: ref.watch(bottomNavNotifier).currentIndex ?? 0,
         onTap: (index) => ref
             .watch(bottomNavNotifier.notifier)
-            .updateNavIndex(currentIndex ?? index),
+            .updateNavIndex(widget.currentIndex ?? index),
         backgroundColor: AppColors.neutralWhite,
         elevation: 0,
         iconSize: 30.ar,

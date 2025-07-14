@@ -16,6 +16,7 @@ class FloatingWidgetScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
+      fit: StackFit.expand,
       children: [
         pageContent,
         Positioned(bottom: 27.ah, child: floatingWidget),

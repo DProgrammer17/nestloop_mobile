@@ -87,8 +87,8 @@ class Loader extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return CircularProgressIndicator(
-      color: Theme.of(context).primaryColor,
-      strokeWidth: 2.ar,
+      color: AppColors.primaryOrange,
+      strokeWidth: 4.ar,
     );
   }
 

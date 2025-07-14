@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "875882754703",
+    "project_id": "nestloopmobile",
+    "storage_bucket": "nestloopmobile.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875882754703:android:38c9999972be8da7e1f6fa",
+        "android_client_info": {
+          "package_name": "com.nestloop.nest_loop_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875882754703-886n7gv83jte6287kr14sqh26ai0fq4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nestloop.nest_loop_mobile",
+            "certificate_hash": "2bf70e552ea6eba034e1b787b9719de9baa46cdc"
+          }
+        },
+        {
+          "client_id": "875882754703-hlorgdsq3k94t96lo15li80iqfehicov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuXqwn9o1WxY9tAqWImzlTtUBJjjZfpKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875882754703-hlorgdsq3k94t96lo15li80iqfehicov.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "875882754703-mb2kthaem6q931p7dseorebmu7im4ia8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nestLoopMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

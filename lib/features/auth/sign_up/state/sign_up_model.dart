@@ -9,6 +9,10 @@ class SignUpModel {
   final FocusNode otpFocusNode;
   final GlobalKey<FormState> otpFormKey;
   final GlobalKey<FormState> createAccountFormKey;
+  final bool signUpLoading;
+  final bool verifyEmailLoading;
+  final bool resendEmailLoading;
+  final bool obscurePassword;
 
   const SignUpModel({
     required this.emailAddressController,
@@ -19,6 +23,10 @@ class SignUpModel {
     required this.otpFocusNode,
     required this.otpFormKey,
     required this.createAccountFormKey,
+    this.signUpLoading = false,
+    this.verifyEmailLoading = false,
+    this.resendEmailLoading = false,
+    this.obscurePassword = false,
   });
 
   SignUpModel copyWith({
@@ -30,6 +38,10 @@ class SignUpModel {
     FocusNode? otpFocusNode,
     GlobalKey<FormState>? otpFormKey,
     GlobalKey<FormState>? createAccountFormKey,
+    bool? signUpLoading,
+    bool? verifyEmailLoading,
+    bool? resendEmailLoading,
+    bool? obscurePassword,
   }) {
     return SignUpModel(
       emailAddressController:
@@ -41,6 +53,10 @@ class SignUpModel {
       otpFocusNode: otpFocusNode ?? this.otpFocusNode,
       otpFormKey: otpFormKey ?? this.otpFormKey,
       createAccountFormKey: createAccountFormKey ?? this.createAccountFormKey,
+      verifyEmailLoading: verifyEmailLoading ?? this.verifyEmailLoading,
+      signUpLoading: signUpLoading ?? this.signUpLoading,
+      resendEmailLoading: resendEmailLoading ?? this.resendEmailLoading,
+      obscurePassword: obscurePassword ?? this.obscurePassword,
     );
   }
 }

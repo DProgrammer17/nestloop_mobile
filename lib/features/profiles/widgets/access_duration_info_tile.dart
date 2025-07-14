@@ -3,13 +3,14 @@ import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/utils/enums/access_duration.dart';
+import 'package:nest_loop_mobile/network/net_utils/enums/access_durations.dart';
+import 'package:nest_loop_mobile/utils/extensions/date_extensions.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 import 'package:nest_loop_mobile/utils/helper_utils.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/tiles/info_tile.dart';
 
 class AccessDurationInfoTile extends StatelessWidget {
-  final AccessDuration accessDuration;
+  final AccessDurations accessDuration;
   final DateTime start;
   final DateTime end;
   const AccessDurationInfoTile({
@@ -21,44 +22,44 @@ class AccessDurationInfoTile extends StatelessWidget {
 
   String durationStatus() {
     switch (accessDuration) {
-      case AccessDuration.permanent:
+      case AccessDurations.permanent:
         return AppStrings.permanent;
 
-      case AccessDuration.ongoing:
+      case AccessDurations.ongoing:
         return AppStrings.ongoing;
 
-      case AccessDuration.timeLimited:
+      case AccessDurations.expiry:
         return AppStrings.temporary;
 
-      case AccessDuration.none:
+      case AccessDurations.none:
         return AppStrings.permanent;
     }
   }
 
   Widget durationIcon() {
     switch (accessDuration) {
-      case AccessDuration.permanent:
+      case AccessDurations.permanent:
         return Icon(
           Icons.event_available_sharp,
           size: 24.ar,
           color: AppColors.slateCharcoal80,
         );
 
-      case AccessDuration.ongoing:
+      case AccessDurations.ongoing:
         return Icon(
           Icons.calendar_month,
           size: 24.ar,
           color: AppColors.slateCharcoal80,
         );
 
-      case AccessDuration.timeLimited:
+      case AccessDurations.expiry:
         return Icon(
           Icons.all_inclusive_outlined,
           size: 20.ar,
           color: AppColors.slateCharcoal80,
         );
 
-      case AccessDuration.none:
+      case AccessDurations.none:
         return Icon(
           Icons.event_available_sharp,
           size: 24.ar,
@@ -82,7 +83,7 @@ class AccessDurationInfoTile extends StatelessWidget {
             headerTitle: AppStrings.accessDuration,
             info: durationStatus(),
           ),
-          if (accessDuration == AccessDuration.timeLimited) ...[
+          if (accessDuration == AccessDurations.expiry) ...[
             15.sbH,
             LinearProgressIndicator(
               value:
@@ -106,7 +107,7 @@ class AccessDurationInfoTile extends StatelessWidget {
                   ),
                   4.sbH,
                   Text(
-                    HelperUtils.fullDateMonthDayFormat(start),
+                    start.fullDateMonthDayFormat,
                     style: AppTextStyles.body1RegularInter(context).copyWith(
                       color: AppColors.slateCharcoal60,
                     ),
@@ -125,7 +126,7 @@ class AccessDurationInfoTile extends StatelessWidget {
                   ),
                   4.sbH,
                   Text(
-                    HelperUtils.fullDateMonthDayFormat(end),
+                    end.fullDateMonthDayFormat,
                     textAlign: TextAlign.end,
                     style: AppTextStyles.body1RegularInter(context).copyWith(
                       color: AppColors.slateCharcoal60,

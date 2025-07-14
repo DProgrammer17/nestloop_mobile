@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,26 +19,11 @@ import 'package:nest_loop_mobile/widgets/utility_widgets/onboarding_header_widge
 import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 import 'package:pinput/pinput.dart';
 
-class AddCarerFirstPage extends ConsumerStatefulWidget {
+class AddCarerFirstPage extends ConsumerWidget {
   const AddCarerFirstPage({super.key});
 
   @override
-  ConsumerState<AddCarerFirstPage> createState() => _AddCarerFirstPageState();
-}
-
-class _AddCarerFirstPageState extends ConsumerState<AddCarerFirstPage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(addCarerNotifier.notifier)
-          .getSuggestedContacts(context: context);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -63,6 +49,15 @@ class _AddCarerFirstPageState extends ConsumerState<AddCarerFirstPage> {
             onChanged: (value) => ref
                 .watch(addCarerNotifier.notifier)
                 .filterContacts(query: value),
+            suffixIcon: InkWell(
+              onTap: () =>
+                  ref.watch(addCarerNotifier.notifier).getCareProvider(context),
+              child: Icon(
+                CupertinoIcons.search,
+                size: 22.ar,
+                color: AppColors.slateCharcoal80,
+              ),
+            ),
           ),
           24.sbH,
           WidgetCasing(
@@ -85,7 +80,7 @@ class _AddCarerFirstPageState extends ConsumerState<AddCarerFirstPage> {
               backgroundColor: AppColors.baseBackground,
               content: Builder(
                 builder: (_) {
-                  if (ref.watch(addCarerNotifier).gettingContacts) {
+                  if (ref.watch(addCarerNotifier).gettingCareProviders) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       spacing: 8.aw,
@@ -103,12 +98,12 @@ class _AddCarerFirstPageState extends ConsumerState<AddCarerFirstPage> {
                     );
                   }
 
-                  if (ref.watch(addCarerNotifier).suggestedContacts.isEmpty) {
+                  if (ref.watch(addCarerNotifier).providers.isEmpty) {
                     return Padding(
                       padding: EdgeInsets.only(bottom: 8.ah),
                       child: Center(
                         child: Text(
-                          AppStrings.noContactsAvailable,
+                          AppStrings.noProvidersAvailable,
                           style: AppTextStyles.h2Inter(
                             context,
                           ).copyWith(color: AppColors.slateCharcoal60),
@@ -116,26 +111,50 @@ class _AddCarerFirstPageState extends ConsumerState<AddCarerFirstPage> {
                       ),
                     );
                   }
-                  return ConstrainedBox(
-                    constraints: BoxConstraints(maxHeight: 272.ah),
-                    child: ListView.separated(
-                      itemBuilder: (_, index) => SuggestedContactInfoTile(
-                        contactInfo: ref
-                            .watch(addCarerNotifier)
-                            .suggestedContacts
-                            .elementAt(index),
-                      ),
-                      separatorBuilder: (_, index) => Padding(
-                        padding: EdgeInsets.symmetric(vertical: 4.ah),
-                        child: Divider(
-                          thickness: 1.aw,
-                          color: AppColors.slateCharcoal06,
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.aw),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxHeight: 272.ah),
+                      child: Column(
+                        children: List.generate(
+                          ref.watch(addCarerNotifier).providers.length,
+                          (index) => Column(
+                            children: [
+                              SuggestedCareProviderInfoTile(
+                                onTap: (provider) => ref
+                                    .watch(addCarerNotifier.notifier)
+                                    .updateSelectedCareProvider(provider),
+                                providerInfo: ref
+                                    .watch(addCarerNotifier)
+                                    .providers
+                                    .elementAt(index),
+                                selected:
+                                    (ref
+                                                .watch(addCarerNotifier)
+                                                .selectedCareProvider
+                                                ?.id ??
+                                            '')
+                                        .contains(
+                                          ref
+                                                  .watch(addCarerNotifier)
+                                                  .providers
+                                                  .elementAt(index)
+                                                  .id ??
+                                              '',
+                                        ) ??
+                                    false,
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 4.ah),
+                                child: Divider(
+                                  thickness: 1.aw,
+                                  color: AppColors.slateCharcoal06,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      itemCount: ref
-                          .watch(addCarerNotifier)
-                          .suggestedContacts
-                          .length,
                     ),
                   );
                 },
@@ -184,16 +203,7 @@ class _AddCarerFirstPageState extends ConsumerState<AddCarerFirstPage> {
           Divider(thickness: 1.aw, color: AppColors.slateCharcoal06),
           16.sbH,
           AppButton(
-            onTap: () {
-              ref
-                  .watch(addCarerNotifier)
-                  .carerPageController
-                  .nextPage(
-                    duration: Duration(milliseconds: 600),
-                    curve: Curves.easeInOut,
-                  );
-              ref.watch(addCarerNotifier.notifier).updatePage(1);
-            },
+            onTap: () => ref.watch(addCarerNotifier.notifier).validateFirstPage(context),
             title: AppStrings.next,
             buttonIcon: SvgPicture.asset(
               SvgAssets.arrowCircleRightIcon,

@@ -42,6 +42,7 @@ class CasingAppTextfield extends StatefulWidget {
     this.borderColor,
     this.showOuterTile = true,
     this.showInfo = false,
+    this.isRequired = false,
     this.horizontalPadding,
     this.verticalPadding,
     this.expand = false,
@@ -99,6 +100,7 @@ class CasingAppTextfield extends StatefulWidget {
   final EdgeInsets? contentPadding;
   final Color? borderColor;
   final bool showOuterTile;
+  final bool isRequired;
   final bool showInfo;
   final bool expand;
   final bool readOnly;
@@ -149,9 +151,7 @@ class _CasingAppTextfieldState extends State<CasingAppTextfield> {
   Widget build(BuildContext context) {
     inputBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(widget.borderRadius ?? 16.ar),
-      borderSide: BorderSide(
-        color: Colors.transparent,
-      ),
+      borderSide: BorderSide(color: Colors.transparent),
     );
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -170,23 +170,37 @@ class _CasingAppTextfieldState extends State<CasingAppTextfield> {
             if (widget.showOuterTile) ...[
               Padding(
                 padding: EdgeInsets.only(left: 16.aw),
-                child: widget.outerContent ??
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    widget.outerContent ??
                         Text(
                           widget.outerTitle!,
-                          style: widget.outerTitleStyle ?? AppTextStyles.h3Inter(context)
-                              .copyWith(
+                          style:
+                              widget.outerTitleStyle ??
+                              AppTextStyles.h3Inter(context).copyWith(
                                 fontSize: 14.asp,
                                 color: AppColors.slateCharcoalMain,
                               ),
                         ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         if (widget.suffixOuterTitle != null) ...[
                           widget.suffixOuterTitle!,
                         ],
+                        if(widget.isRequired)...[
+                          Icon(
+                            Icons.emergency,
+                            size: 10.ar,
+                            color: AppColors.baseRed,
+                          ),
+                        ],
                       ],
                     ),
+                  ],
+                ),
               ),
               (widget.outerTileSpacing ?? 10).sbH,
             ],
@@ -260,16 +274,21 @@ class _CasingAppTextfieldState extends State<CasingAppTextfield> {
               8.sbH,
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.aw),
-                child: widget.fieldInfoContent ?? Align(
-                  alignment: widget.fieldInfoAlignment ?? Alignment.centerLeft,
-                  child: Text(
-                    widget.fieldInfo!,
-                    style: widget.fieldInfoStyle ?? AppTextStyles.h2Inter(context).copyWith(
-                      fontSize: 13.asp,
-                      color: AppColors.slateCharcoalMain,
+                child:
+                    widget.fieldInfoContent ??
+                    Align(
+                      alignment:
+                          widget.fieldInfoAlignment ?? Alignment.centerLeft,
+                      child: Text(
+                        widget.fieldInfo!,
+                        style:
+                            widget.fieldInfoStyle ??
+                            AppTextStyles.h2Inter(context).copyWith(
+                              fontSize: 13.asp,
+                              color: AppColors.slateCharcoalMain,
+                            ),
+                      ),
                     ),
-                  ),
-                ),
               ),
             ],
           ],

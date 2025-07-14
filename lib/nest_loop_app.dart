@@ -32,7 +32,7 @@ class NestLoopApp extends StatelessWidget{
               appBarTheme: globalAppBarTheme,
             ),
             debugShowCheckedModeBanner: false,
-            home: const OnboardingPage(),
+            home: const SplashPage(),
           ),
         );
       },

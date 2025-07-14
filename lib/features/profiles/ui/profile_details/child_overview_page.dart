@@ -6,9 +6,9 @@ import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/features/auth/sign_up/state/child_profile/child_profile_notifier.dart';
-import 'package:nest_loop_mobile/features/auth/sign_up/state/child_profile/model/child_profile_model.dart';
+import 'package:nest_loop_mobile/features/child_profile/state/child_profile_notifier.dart';
 import 'package:nest_loop_mobile/features/auth/sign_up/widgets/profile_image_widget.dart';
+import 'package:nest_loop_mobile/network/api/user/response/get_user_profile_response.dart';
 import 'package:nest_loop_mobile/utils/extensions/string_extensions.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_button.dart';
@@ -16,7 +16,7 @@ import 'package:nest_loop_mobile/widgets/utility_widgets/tiles/info_tile.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 
 class ChildOverviewPage extends ConsumerWidget{
-  final ChildProfileModel model;
+  final ChildData model;
   const ChildOverviewPage({super.key, required this.model});
 
   @override
@@ -53,12 +53,12 @@ class ChildOverviewPage extends ConsumerWidget{
                     height: 24.ah,
                   ),
                   headerTitle: AppStrings.age,
-                  info: model.age.toString(),
+                  info: model.age?.toString() ?? '',
                 ),
                 16.sbH,
                 InfoTile(
                   headerIcon: Icon(
-                    model.gender.toLowerCase().contains(
+                    (model.gender ?? '').toLowerCase().contains(
                       AppStrings.male.toLowerCase(),
                     )
                         ? Icons.male_sharp
@@ -67,7 +67,7 @@ class ChildOverviewPage extends ConsumerWidget{
                     color: AppColors.slateCharcoal60,
                   ),
                   headerTitle: AppStrings.gender,
-                  info: model.gender,
+                  info: model.gender?.toTitleCase,
                 ),
               ],
             ),
@@ -98,7 +98,7 @@ class ChildOverviewPage extends ConsumerWidget{
                       color: AppColors.neutralWhite,
                     ),
                     child: Text(
-                      model.diagnosis,
+                      (model.diagnoses ?? []).join(', ').toCamelCase,
                       style: AppTextStyles.body1RegularInter(
                         context,
                       ).copyWith(fontWeight: FontWeight.w600),
@@ -119,7 +119,7 @@ class ChildOverviewPage extends ConsumerWidget{
                     child: Wrap(
                       alignment: WrapAlignment.end,
                       children: List.generate(
-                        model.tags.length,
+                        (model.customTags ?? []).length,
                             (index) => Container(
                           margin: EdgeInsets.symmetric(vertical: 4.ah, horizontal: 4.aw),
                           padding: EdgeInsets.symmetric(
@@ -131,7 +131,7 @@ class ChildOverviewPage extends ConsumerWidget{
                             color: AppColors.neutralWhite,
                           ),
                           child: Text(
-                            model.tags.elementAt(index),
+                            model.customTags?.elementAt(index) ?? '',
                             style: AppTextStyles.body1RegularInter(
                               context,
                             ).copyWith(fontWeight: FontWeight.w600),

@@ -7,6 +7,7 @@ import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
 import 'package:nest_loop_mobile/features/profiles/state/add_carer/add_carer_notifier.dart';
+import 'package:nest_loop_mobile/network/net_utils/enums/care_permissions.dart';
 import 'package:nest_loop_mobile/utils/extensions/navigation.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_back_button.dart';
@@ -46,11 +47,14 @@ class AddCarerSetPermissions extends ConsumerWidget {
             subtext: AppStrings.addCarerSubtitle,
           ),
           32.sbH,
+
           ///Mid Content
           Padding(
             padding: EdgeInsets.only(left: 12.aw),
             child: Text(
-              AppStrings.whatCanSee(ref.watch(addCarerNotifier).carerNameController.text),
+              AppStrings.whatCanSee(
+                ref.watch(addCarerNotifier).carerNameController.text,
+              ),
               style: AppTextStyles.body2RegularInter(context).copyWith(
                 color: AppColors.slateCharcoal60,
                 fontWeight: FontWeight.w600,
@@ -72,8 +76,21 @@ class AddCarerSetPermissions extends ConsumerWidget {
                   ),
                   title: AppStrings.profileBasics,
                   subtitle: AppStrings.profileBasicsSubtitle,
-                  enabled: true,
-                  onEnabled: (value) {},
+                  enabled: ref
+                      .watch(addCarerNotifier)
+                      .permissions
+                      .any((e) => e == CarePermissions.profileBasics),
+                  onEnabled: (value) {
+                    if (value) {
+                      ref
+                          .watch(addCarerNotifier.notifier)
+                          .addToPermissions(CarePermissions.profileBasics);
+                      return;
+                    }
+                    ref
+                        .watch(addCarerNotifier.notifier)
+                        .removeFromPermissions(CarePermissions.profileBasics);
+                  },
                 ),
                 InfoSwitchTile(
                   leadingIcon: SvgPicture.asset(
@@ -83,8 +100,21 @@ class AddCarerSetPermissions extends ConsumerWidget {
                   ),
                   title: AppStrings.careDetails,
                   subtitle: AppStrings.careDetailsSubtitle,
-                  enabled: true,
-                  onEnabled: (value) {},
+                  enabled: ref
+                      .watch(addCarerNotifier)
+                      .permissions
+                      .any((e) => e == CarePermissions.careDetails),
+                  onEnabled: (value) {
+                    if (value) {
+                      ref
+                          .watch(addCarerNotifier.notifier)
+                          .addToPermissions(CarePermissions.careDetails);
+                      return;
+                    }
+                    ref
+                        .watch(addCarerNotifier.notifier)
+                        .removeFromPermissions(CarePermissions.careDetails);
+                  },
                 ),
                 InfoSwitchTile(
                   leadingIcon: SvgPicture.asset(
@@ -94,8 +124,21 @@ class AddCarerSetPermissions extends ConsumerWidget {
                   ),
                   title: AppStrings.documents,
                   subtitle: AppStrings.documentsSubtitle,
-                  enabled: false,
-                  onEnabled: (value) {},
+                  enabled: ref
+                      .watch(addCarerNotifier)
+                      .permissions
+                      .any((e) => e == CarePermissions.documents),
+                  onEnabled: (value) {
+                    if (value) {
+                      ref
+                          .watch(addCarerNotifier.notifier)
+                          .addToPermissions(CarePermissions.documents);
+                      return;
+                    }
+                    ref
+                        .watch(addCarerNotifier.notifier)
+                        .removeFromPermissions(CarePermissions.documents);
+                  },
                 ),
               ],
             ),
@@ -104,7 +147,9 @@ class AddCarerSetPermissions extends ConsumerWidget {
           Padding(
             padding: EdgeInsets.only(left: 12.aw),
             child: Text(
-              AppStrings.whatCanAccess(ref.watch(addCarerNotifier).carerNameController.text),
+              AppStrings.whatCanAccess(
+                ref.watch(addCarerNotifier).carerNameController.text,
+              ),
               style: AppTextStyles.body2RegularInter(context).copyWith(
                 color: AppColors.slateCharcoal60,
                 fontWeight: FontWeight.w600,
@@ -164,16 +209,7 @@ class AddCarerSetPermissions extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AppButton(
-                  onTap: () {
-                    ref
-                        .watch(addCarerNotifier)
-                        .carerPageController
-                        .nextPage(
-                          duration: Duration(milliseconds: 600),
-                          curve: Curves.easeInOut,
-                        );
-                    ref.watch(addCarerNotifier.notifier).updatePage(2);
-                  },
+                  onTap: () => ref.watch(addCarerNotifier.notifier).validateSecondPage(context),
                   title: AppStrings.next,
                   buttonIcon: SvgPicture.asset(
                     SvgAssets.arrowCircleRightIcon,

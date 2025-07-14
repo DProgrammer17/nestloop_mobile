@@ -3,8 +3,8 @@ abstract class AppAssets {
   static const onboardingImage2 = 'assets/png/onboarding_image_2.png';
   static const onboardingImage3 = 'assets/png/onboarding_image_3.png';
   static const onboardingImage4 = 'assets/png/onboarding_image_4.png';
-  static const profileImagePlaceholder =
-      'assets/png/profile_image_placeholder.png';
+  static const profileImagePlaceholder = 'assets/png/profile_image_placeholder.png';
+  static const nestLoopLogoImage = 'assets/png/nestloop_logo.png';
 }
 
 abstract class SvgAssets {
@@ -43,4 +43,11 @@ abstract class SvgAssets {
   static const keyIcon = 'assets/svg/key_icon.svg';
   static const lightbulbIcon = 'assets/svg/lightbulb_icon.svg';
   static const invitationSentIcon = 'assets/svg/invitation_sent_icon.svg';
+  static const aParentIcon = 'assets/svg/parent_icon.svg';
+  static const aCareGiverIcon = 'assets/svg/caregiver_icon.svg';
+}
+
+abstract class LottieAssets{
+  static const profilePendingAnimation = 'assets/lottie/profile_pending_animation.json';
+  static const noDataFoundAnimation = 'assets/lottie/no_data_found.json';
 }

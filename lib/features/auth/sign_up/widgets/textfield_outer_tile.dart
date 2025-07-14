@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
@@ -8,12 +9,14 @@ class TextFieldOuterTile extends StatelessWidget {
   final String title;
   final TextStyle? titleStyle;
   final Widget? suffixIcon;
+  final bool isRequired;
   const TextFieldOuterTile({
     super.key,
     required this.leading,
     required this.title,
     this.titleStyle,
     this.suffixIcon,
+    this.isRequired = false,
   });
 
   @override
@@ -30,6 +33,14 @@ class TextFieldOuterTile extends StatelessWidget {
               title,
               style: titleStyle ?? AppTextStyles.h3Inter(context).copyWith(fontSize: 14.asp),
             ),
+            if(isRequired)...[
+              3.sbW,
+              Icon(
+                Icons.emergency,
+                size: 10.ar,
+                color: AppColors.baseRed,
+              ),
+            ],
           ],
         ),
         if (suffixIcon != null) ...[

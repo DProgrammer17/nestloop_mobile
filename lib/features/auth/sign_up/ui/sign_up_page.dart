@@ -24,6 +24,7 @@ class SignUpPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
+      isLoading: ValueNotifier(ref.watch(signUpNotifier).signUpLoading),
       appBar: EmptyAppBar(),
       body: Column(
         children: [
@@ -65,6 +66,8 @@ class SignUpPage extends ConsumerWidget {
           24.sbH,
           AppButton(
             width: double.infinity,
+            onTap: () =>
+                ref.watch(signUpNotifier.notifier).getGoogleCredentials(context),
             title: AppStrings.signUpGoogle,
             textColor: AppColors.slateCharcoalMain,
             buttonColor: AppColors.neutralWhite,
@@ -87,13 +90,14 @@ class SignUpPage extends ConsumerWidget {
           24.sbH,
           CasingAppTextfield(
             controller: ref.watch(signUpNotifier).emailAddressController,
-            outerTitle: AppStrings.signUpApple,
+            outerTitle: AppStrings.emailAddress,
             hintText: AppStrings.emailAddressHint,
             horizontalPadding: 0,
           ),
           18.sbH,
           AppButton(
-            onTap: ()=> context.pushSuper(CreateYourAccount()),
+            onTap: () =>
+                ref.watch(signUpNotifier.notifier).validateSignUpEmail(context),
             title: AppStrings.joinNestLoop,
             buttonIcon: SvgPicture.asset(
               SvgAssets.arrowCircleRightIcon,

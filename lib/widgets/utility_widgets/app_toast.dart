@@ -16,7 +16,7 @@ abstract class AppMessages {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.ar)),
       padding: EdgeInsets.zero,
       margin: EdgeInsets.only(
-        bottom: AppConstants.deviceHeight - 130.ah,
+        bottom: AppConstants.deviceHeight - 180.ah,
         left: 10.aw,
         right: 10.aw,
       ),
@@ -36,7 +36,7 @@ abstract class AppMessages {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.ar)),
       padding: EdgeInsets.zero,
       margin: EdgeInsets.only(
-        bottom: AppConstants.deviceHeight - 130.ah,
+        bottom: AppConstants.deviceHeight - 180.ah,
         left: 10.aw,
         right: 10.aw,
       ),
@@ -56,7 +56,7 @@ abstract class AppMessages {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.ar)),
       padding: EdgeInsets.zero,
       margin: EdgeInsets.only(
-        bottom: AppConstants.deviceHeight - 130.ah,
+        bottom: AppConstants.deviceHeight - 180.ah,
         left: 10.aw,
         right: 10.aw,
       ),

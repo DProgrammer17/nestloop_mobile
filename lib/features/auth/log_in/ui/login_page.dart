@@ -7,7 +7,7 @@ import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/features/auth/sign_up/state/sign_up_notifier.dart';
+import 'package:nest_loop_mobile/features/auth/log_in/state/login_notifier.dart';
 import 'package:nest_loop_mobile/features/auth/sign_up/ui/sign_up_page.dart';
 import 'package:nest_loop_mobile/features/auth/sign_up/widgets/or_divider_widget.dart';
 import 'package:nest_loop_mobile/utils/extensions/navigation.dart';
@@ -23,6 +23,7 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
+      isLoading: ValueNotifier(ref.watch(loginNotifier).isLoading),
       appBar: EmptyAppBar(),
       body: Column(
         children: [
@@ -37,6 +38,7 @@ class LoginPage extends ConsumerWidget {
           ),
           24.sbH,
           AppButton(
+            onTap: ()=> ref.watch(loginNotifier.notifier).getGoogleCredentials(context),
             width: double.infinity,
             title: AppStrings.logInUpGoogle,
             textColor: AppColors.slateCharcoalMain,
@@ -59,13 +61,20 @@ class LoginPage extends ConsumerWidget {
           OrDividerWidget(),
           24.sbH,
           CasingAppTextfield(
-            controller: ref.watch(signUpNotifier).emailAddressController,
-            outerTitle: AppStrings.signUpApple,
+            controller: ref.watch(loginNotifier).emailAddressController,
+            outerTitle: AppStrings.emailAddress,
             hintText: AppStrings.emailAddressHint,
+            horizontalPadding: 0,
+          ),
+          CasingAppTextfield(
+            controller: ref.watch(loginNotifier).passwordController,
+            outerTitle: AppStrings.password,
+            hintText: AppStrings.enterPasswordHint,
             horizontalPadding: 0,
           ),
           18.sbH,
           AppButton(
+            onTap: ()=> ref.watch(loginNotifier.notifier).validateLoginCall(context),
             title: AppStrings.logIn,
             buttonIcon: SvgPicture.asset(
               SvgAssets.arrowCircleRightIcon,

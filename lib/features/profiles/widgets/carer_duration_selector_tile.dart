@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/utils/enums/access_duration.dart';
+import 'package:nest_loop_mobile/network/net_utils/enums/access_durations.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 
 class CarerDurationSelectorTile extends StatelessWidget {
-  final AccessDuration selectedDuration;
-  final AccessDuration durationType;
+  final AccessDurations selectedDuration;
+  final AccessDurations durationType;
   final Widget? leading;
   final IconData? leadingIcon;
   final double? iconSize;

@@ -1,4 +1,8 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uuid/uuid.dart';
+
+///global uuid generation function;
+String uuid= Uuid().v4();
 
 abstract class AppConstants{
   static const size = _SizeConstant();

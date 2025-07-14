@@ -5,12 +5,26 @@ import 'package:nest_loop_mobile/features/auth/sign_up/widgets/onboarding_indica
 import 'package:nest_loop_mobile/features/profiles/state/add_carer/add_carer_notifier.dart';
 import 'package:nest_loop_mobile/widgets/page_widgets/app_scaffold.dart';
 
-class AddCarerPage extends ConsumerWidget {
+class AddCarerPage extends ConsumerStatefulWidget {
   const AddCarerPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AddCarerPage> createState() => _AddCarerPageState();
+}
+
+class _AddCarerPageState extends ConsumerState<AddCarerPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(addCarerNotifier.notifier).clearCarerFields(context: context);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AppScaffold(
+      isLoading: ValueNotifier(ref.watch(addCarerNotifier).isLoading),
       padding: EdgeInsets.symmetric(horizontal: 13.aw),
       appBarContent: OnboardingIndicator(
         sections: 4,

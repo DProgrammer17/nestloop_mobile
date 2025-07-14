@@ -23,6 +23,7 @@ class CreateYourAccount extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
+      isLoading: ValueNotifier(ref.watch(signUpNotifier).signUpLoading),
       bottomPadding: EdgeInsets.zero,
       appBarLeadingContent: AppBackButton(),
       body: Form(
@@ -60,6 +61,19 @@ class CreateYourAccount extends ConsumerWidget {
               ),
               hintText: AppStrings.passwordHint,
               horizontalPadding: 0,
+              obscureText: ref.watch(signUpNotifier).obscurePassword,
+              maxLines: 1,
+              suffixIcon: InkWell(
+                onTap: () =>
+                    ref.watch(signUpNotifier.notifier).obscurePassword(),
+                child: Icon(
+                  ref.watch(signUpNotifier).obscurePassword
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                  size: 22.ar,
+                  color: AppColors.slateCharcoal60,
+                ),
+              ),
             ),
             CasingAppTextfield(
               controller: ref.watch(signUpNotifier).postCodeController,
@@ -83,7 +97,9 @@ class CreateYourAccount extends ConsumerWidget {
         children: [
           Center(
             child: AppButton(
-              onTap: ()=> context.pushSuper(VerifyYourEmail()),
+              onTap: () => ref
+                  .watch(signUpNotifier.notifier)
+                  .validateSignUpCall(context),
               title: AppStrings.continueText,
               buttonIcon: SvgPicture.asset(
                 SvgAssets.arrowCircleRightIcon,

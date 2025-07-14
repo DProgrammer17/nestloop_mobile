@@ -7,7 +7,7 @@ import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
 import 'package:nest_loop_mobile/features/auth/sign_up/state/sign_up_notifier.dart';
-import 'package:nest_loop_mobile/features/auth/sign_up/ui/child_profile/child_profile_page.dart';
+import 'package:nest_loop_mobile/features/child_profile/ui/child_profile_page.dart';
 import 'package:nest_loop_mobile/utils/extensions/navigation.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 import 'package:nest_loop_mobile/widgets/page_widgets/app_scaffold.dart';
@@ -42,11 +42,11 @@ class VerifyYourEmail extends ConsumerWidget {
                 length: 6,
                 onEditingComplete: (pin) {
                   if (pin.length == 6) {
-                    ref.watch(signUpNotifier.notifier).validateOTP(context);
+                    ref.watch(signUpNotifier.notifier).validateEmailOTP(context);
                   }
                 },
                 onComplete: () =>
-                    ref.watch(signUpNotifier.notifier).validateOTP(context),
+                    ref.watch(signUpNotifier.notifier).validateEmailOTP(context),
               ),
             ),
             24.sbH,

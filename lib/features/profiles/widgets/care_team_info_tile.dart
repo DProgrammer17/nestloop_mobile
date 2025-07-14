@@ -6,19 +6,20 @@ import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
-import 'package:nest_loop_mobile/features/profiles/state/parent_model.dart';
 import 'package:nest_loop_mobile/features/profiles/ui/profile_details/manage_care_access_widget.dart';
 import 'package:nest_loop_mobile/features/profiles/widgets/access_duration_info_tile.dart';
 import 'package:nest_loop_mobile/features/profiles/widgets/care_access_info_tile.dart';
 import 'package:nest_loop_mobile/features/profiles/widgets/parent_access_info_tile.dart';
+import 'package:nest_loop_mobile/network/api/child_profiles/response/get_child_care_provider_response.dart';
+import 'package:nest_loop_mobile/network/net_utils/enums/access_durations.dart';
+import 'package:nest_loop_mobile/network/net_utils/enums/access_levels.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
-import 'package:nest_loop_mobile/widgets/utility_widgets/app_switch.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_button.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/modals/app_platform_bottom_sheet.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 
 class CareTeamInfoTile extends StatelessWidget {
-  final CareTeamModel model;
+  final ChildCareProviderResponse model;
   const CareTeamInfoTile({super.key, required this.model});
 
   @override
@@ -33,46 +34,55 @@ class CareTeamInfoTile extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16.ar),
-                    child: Image.asset(
-                      AppAssets.profileImagePlaceholder,
-                      height: 58.ah,
-                      width: 58.aw,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  12.sbW,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16.ar),
+                        child: Image.asset(
+                          AppAssets.profileImagePlaceholder,
+                          height: 58.ah,
+                          width: 58.aw,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      12.sbW,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            model.name,
-                            style: AppTextStyles.h3Inter(context),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: 170.aw,
+                                child: Text(
+                                  model.parent?.fullName ?? model.careProvider?.fullName ?? '',
+                                  style: AppTextStyles.h3Inter(context),
+                                ),
+                              ),
+                              5.sbW,
+                              Icon(
+                                Icons.verified_sharp,
+                                size: 18.ar,
+                                color: AppColors.baseBlue,
+                              ),
+                            ],
                           ),
-                          5.sbW,
-                          Icon(
-                            Icons.verified_sharp,
-                            size: 18.ar,
-                            color: AppColors.baseBlue,
+                          2.sbH,
+                          Text(
+                            model.parent?.email ?? model.careProvider?.email ?? '',
+                            style: AppTextStyles.body2RegularInter(
+                              context,
+                            ).copyWith(color: AppColors.slateCharcoal60),
                           ),
                         ],
-                      ),
-                      2.sbH,
-                      Text(
-                        model.email,
-                        style: AppTextStyles.body2RegularInter(
-                          context,
-                        ).copyWith(color: AppColors.slateCharcoal60),
                       ),
                     ],
                   ),
                   const Spacer(),
-                  if (model.isParent) ...[
+                  if (model.parent != null) ...[
                     Container(
                       margin: EdgeInsets.only(right: 16.aw),
                       alignment: Alignment.center,
@@ -113,18 +123,18 @@ class CareTeamInfoTile extends StatelessWidget {
               16.sbH,
               Builder(
                 builder: (_) {
-                  if (model.isParent) {
+                  if (model.parent != null) {
                     return ParentAccessInfoTile();
                   }
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CareAccessInfoTile(accessLevel: model.accessLevel),
+                      CareAccessInfoTile(accessLevel: model.accessType ?? AccessLevels.none),
                       10.sbH,
                       AccessDurationInfoTile(
-                        accessDuration: model.accessDuration,
-                        start: model.start ?? DateTime.now(),
-                        end: model.ends ?? DateTime.now(),
+                        accessDuration: model.accessDuration?.type ?? AccessDurations.none,
+                        start: model.createdAt ?? DateTime.now(),
+                        end: model.accessDuration?.expiryDateTime ?? DateTime.now(),
                       ),
                       10.sbH,
                       Row(
@@ -172,7 +182,7 @@ class CareTeamInfoTile extends StatelessWidget {
             ],
           ),
         ),
-        if (model.isParent) ...[
+        if (model.careProvider?.isParent ?? false) ...[
           16.sbH,
           Divider(thickness: 1.aw, color: AppColors.slateCharcoal06),
         ],

@@ -1,11 +1,16 @@
-abstract class AppStrings{
+abstract class AppStrings {
   static const appName = 'NestLoop';
   static const satoshiFontFamily = 'Satoshi';
   static const interFontFamily = 'Inter';
+  static const parentOrCaregiver = 'Are you a Parent or a Caregiver?';
+  static const aParent = 'I’m a Parent';
+  static const aCaregiver = 'I’m a Caregiver';
   static const onboardingTitle1 = 'Smart tools. Real support.\nJust for you.';
-  static const onboardingSubtitle1 = 'NestLoop helps you manage care with ease.';
+  static const onboardingSubtitle1 =
+      'NestLoop helps you manage care with ease.';
   static const onboardingTitle2 = 'Build your child’s\ncare profile.';
-  static const onboardingSubtitle2 = 'Add details, upload plans, and set goals.';
+  static const onboardingSubtitle2 =
+      'Add details, upload plans, and set goals.';
   static const onboardingTitle3 = 'Join a community of\ndiverse carers.';
   static const onboardingSubtitle3 = 'Share tips and find local support.';
   static const onboardingTitle4 = 'Find tools that work\nfor perfectly you.';
@@ -16,7 +21,8 @@ abstract class AppStrings{
   static const joinNestLoop = 'Join NestLoop';
   static const welcomeBack = 'Welcome Back!';
   static const createYourAccount = 'Create your Account';
-  static const startManagingYourChildsCare = 'Start managing your child’s care in one place.';
+  static const startManagingYourChildsCare =
+      'Start managing your child’s care in one place.';
   static const orCaps = 'OR';
   static const alreadyHaveAccount = 'Already have an account? ';
   static const dontHaveAccount = 'Don\'t have an account? ';
@@ -26,7 +32,8 @@ abstract class AppStrings{
   static const byContinuing = 'By continuing, you agree to our ';
   static const termsAndConditions = 'Terms & Conditions';
   static const privacyPolicy = 'Privacy Policy.';
-  static const coordinateChildCareWithEase = 'Coordinate your child’s care with ease';
+  static const coordinateChildCareWithEase =
+      'Coordinate your child’s care with ease';
   static const signUpGoogle = 'Sign up with Google';
   static const signUpApple = 'Sign up with Apple';
   static const logInUpGoogle = 'Log In with Google';
@@ -37,7 +44,8 @@ abstract class AppStrings{
   static const fullNameHint = 'Enter your full name';
   static const password = 'Password';
   static const passwordHint = 'Create a password';
-  static const passwordInfo= 'Password must be 8+ characters.';
+  static const enterPasswordHint = 'Enter your password';
+  static const passwordInfo = 'Password must be 8+ characters.';
   static const postcode = 'Postcode (Optional)';
   static const postcodeHint = 'Enter your postcode';
   static const continueText = 'Continue';
@@ -47,9 +55,12 @@ abstract class AppStrings{
   static const enterOTP = 'Enter OTP';
   static const didNotReceiveCode = 'Didn’t receive the code? ';
   static const verifyEmail = 'Verify Your Email';
-  static const sent6digitCodeToEmail = 'We’ve sent a 6-digit code to [user’s email]. Enter it below to verify.';
+  static const sent6digitCodeToEmail =
+      'We’ve sent a 6-digit code to [user’s email]. Enter it below to verify.';
   static const tellUsAboutYourChild = 'Tell Us About Your Child';
-  static const addTheBasics = 'Add the basics to start coordinating their care.';
+  static const addTheBasics =
+      'Add the basics to start coordinating their care.';
+  static welcomeName(String name)=> 'Welcome, $name';
   static const name = 'Name';
   static const age = 'Age';
   static const childName = 'Child’s name';
@@ -57,7 +68,7 @@ abstract class AppStrings{
   static const childAge = 'Child’s age';
   static const childAgeHint = 'e.g., 3';
   static const dob = 'Date of birth';
-  static const dobHint = 'dd/mm/yyyy';
+  static const dobHint = 'yyyy-mm-dd';
   static const gender = 'Gender';
   static const diagnosis = 'Diagnosis';
   static const diagnosisIf = 'Diagnosis (if any)';
@@ -70,14 +81,19 @@ abstract class AppStrings{
   static const triggersHint = 'Loud noises';
   static const tags = 'Tags';
   static const next = 'Next';
+  static const success = 'Success!! That went great.';
+  static const loginSuccess = 'Login Successful!! That went great.';
   static const addMoreDetails = 'Add More Details';
-  static const uploadDocsAndTags = 'Upload documents and tags to complete their profile.';
+  static const uploadDocsAndTags =
+      'Upload documents and tags to complete their profile.';
   static const therapyGoals = 'Therapy Goals';
   static const therapyGoalsIf = 'Therapy Goals (if any)';
-  static const therapyGoalsIfHint = 'What are their goals? (e.g., communication)';
+  static const therapyGoalsIfHint =
+      'What are their goals? (e.g., communication)';
   static const dailyRoutine = 'Daily Routine';
   static const dailyRoutineIf = 'Daily Routine (if any)';
-  static const dailyRoutineIfHint = 'Share their routine (e.g., 8 AM: Breakfast)';
+  static const dailyRoutineIfHint =
+      'Share their routine (e.g., 8 AM: Breakfast)';
   static const uploadDocuments = 'Upload Documents';
   static const tabToUpload = 'Tap to upload ';
   static const tabToUploadTypes = '(PDF, up to 5MB)';
@@ -98,11 +114,14 @@ abstract class AppStrings{
   static const female = 'Female';
   static const editProfile = 'Edit Profile';
   static const yourChildProfile = 'Your Child’s Profile';
-  static const childProfileSummary = 'Here’s a summary of the profile you’ve created. You can edit it later if needed.';
+  static const childProfileSummary =
+      'Here’s a summary of the profile you’ve created. You can edit it later if needed.';
   static const seeDetails = 'See Details';
   static const addAnotherChild = 'Add another Child';
   static const goToDashboard = 'Go to Dashboard';
   static const processHasBeenTerminated = 'Process has been terminated.';
+  static const childProfileEmpty = 'You don\'t have child profiles';
+  static const childProfileEmptySubtitle = 'Add some children on your profile, so you can provide some care.';
   static const selectAnImage = 'Select an Image';
   static const takeAPicture = 'Take a Picture';
   static const openGallery = 'Open Gallery';
@@ -113,11 +132,13 @@ abstract class AppStrings{
   static const market = 'Market';
   static const inbox = 'Inbox';
   static const addChild = 'Add Child';
-  static const seeYourChildrensProfile = 'See all your children’s profiles in one place';
+  static const seeYourChildrensProfile =
+      'See all your children’s profiles in one place';
   static const overview = 'Overview';
   static const careDetails = 'Care Details';
   static const documents = 'Documents';
   static const careTeam = 'Care Team';
+  static const careProvider = 'Care Provider';
   static const editBasicDetails = 'Edit Basic Details';
   static const editCareDetails = 'Edit Care Details';
   static const newCarer = 'New Carer';
@@ -126,7 +147,8 @@ abstract class AppStrings{
   static const accessDuration = 'Access Duration';
   static const limitEditAccess = 'Limited Edit Access';
   static const viewInfoAndEdit = 'Can view information and edit';
-  static const viewSpecificInfoAndEdit = 'Can view specific information and edit';
+  static const viewSpecificInfoAndEdit =
+      'Can view specific information and edit';
   static const started = 'Started';
   static const ends = 'Ends';
   static const viewOnlyAccess = 'View Only Access';
@@ -138,11 +160,14 @@ abstract class AppStrings{
   static const permanent = 'Edit Access';
   static const manageInfoAccess = 'Manage what information a carer can access.';
   static String accessFor(String name) => 'Access for $name';
-  static String whatCanSee(String name) => 'WHAT ${name.toUpperCase()} CAN SEE:';
-  static String whatCanAccess(String name) => 'WHAT ${name.toUpperCase()} CAN ACCESS:';
+  static String whatCanSee(String name) =>
+      'WHAT ${name.toUpperCase()} CAN SEE:';
+  static String whatCanAccess(String name) =>
+      'WHAT ${name.toUpperCase()} CAN ACCESS:';
   static const profileBasics = 'Profile Basics';
   static const profileBasicsSubtitle = 'Name, Age, Gender, Diagnosis, Tags';
-  static const careDetailsSubtitle = 'Triggers, Allergies, Therapy Goals, Daily Routine';
+  static const careDetailsSubtitle =
+      'Triggers, Allergies, Therapy Goals, Daily Routine';
   static const documentsSubtitle = 'Care Passport, Reports, Medical Records';
   static const accessType = 'Access Type';
   static const noAccess = 'No Access';
@@ -159,24 +184,51 @@ abstract class AppStrings{
   static const custom = 'Custom';
   static const saveChanges = 'Save Changes';
   static const addCarer = 'Add Carer';
-  static const addCarerSubtitle = 'Enter an email address or username of the person you’d like to add to Emma’s care team.';
+  static const addCarerSubtitle =
+      'Enter an email address or username of the person you’d like to add to Emma’s care team.';
   static const emailOrUsername = 'Email or Username';
   static const emailOrUsernameHint = 'Enter email or username';
+  static const suggestedProvider = 'Suggested Provider';
   static const suggestedContacts = 'Suggested Contacts';
   static const personalMessage = 'Personal Message';
   static const addPersonalNote = 'Add a personal note to your invitation';
   static const optional = 'Optional';
   static const cancel = 'Cancel';
   static const setPermissions = 'Set Permissions';
-  static const accessDurationSubtitle = 'Define when access begins and ends. You can change or extend this later';
-  static String textFieldLengthCount({required int currentCount, int? totalCount}) => '$currentCount/${(totalCount ?? 64.toString())}';
+  static const accessDurationSubtitle =
+      'Define when access begins and ends. You can change or extend this later';
+  static String textFieldLengthCount({
+    required int currentCount,
+    int? totalCount,
+  }) => '$currentCount/${(totalCount ?? 64.toString())}';
   static const noContactsAvailable = 'No Contacts Available';
+  static const noProvidersAvailable = 'No Providers Available';
   static const invitationSent = 'Invitation Sent';
-  static String nameWillReceiveEmail(String name) => '$name will receive an email with instructions to join Morgan’s care team.';
+  static String nameWillReceiveEmail(String name) =>
+      '$name will receive an email with instructions to join Morgan’s care team.';
 }
 
-abstract class ErrorStrings{
+abstract class ErrorStrings {
+  static const pleaseEnterEmail = 'Please enter email.';
   static const pleaseInputValidPin = 'Please input valid pin.';
-  static const fileIsLargerThan5 = 'File is larger than 5MB please select a different file.';
+  static const fileIsLargerThan5 =
+      'File is larger than 5MB please select a different file.';
   static const permissionNotGranted = 'Feature permission is denied.';
+  static const pleaseFillAllFields = "Please fill all fields";
+  static const pleaseUploadAPhoto = "Please upload an image";
+  static const exceptionMessage =
+      'Something went wrong. we\'re looking into it';
+  static const exceptionMessage2 = "Something went wrong. We're unable to complete this process";
+  static const noCareProvidersFound = "No Care providers found.";
+  static const addSomeCareProviders = "Go add some care providers.";
+  static const pleaseSelectAProvider = "Please select a care provider";
+  static const pleaseSetPermissions = "Please set permissions";
+  static const pleaseSelectAccessDuration = "Please select access duration";
+}
+
+abstract class ConfigStrings{
+  static const googleSignInClientID = 'GOOGLE_SIGN_IN_CLIENT_ID';
+  static const globalUserRole = 'GLOBAL_USER_ROLE';
+  static const authToken = 'AUTH_TOKEN';
+  static const skipOnboarding = 'SKIP_ONBOARDING';
 }
