@@ -19,7 +19,7 @@ class FloatingWidgetScaffold extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         pageContent,
-        Positioned(bottom: 27.ah, child: floatingWidget),
+        Positioned(bottom: bottomPositioned ?? 27.ah, child: floatingWidget),
       ],
     );
   }

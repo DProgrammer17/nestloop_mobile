@@ -67,6 +67,7 @@ flutter:
     - assets/svg/
     - assets/fonts/
     - assets/lottie/
+    - assets/json/
     - configurations/
     - configurations/config.env
 

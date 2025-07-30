@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:nest_loop_mobile/network/net_utils/net_helper_utils.dart';
 
 class CreateChildProfileRequest {
   final String name;
@@ -11,7 +12,7 @@ class CreateChildProfileRequest {
   final List<String> allergies;
   final List<String> triggers;
   final List<String> therapyGoals;
-  final List<String> dailyRoutine;
+  final List<RoutineInfo> dailyRoutine;
   final List<String> tags;
   final List<MultipartFile> documents;
   final MultipartFile avatar;
@@ -39,7 +40,6 @@ class CreateChildProfileRequest {
     "allergies": List<dynamic>.from(allergies.map((x) => x)),
     "triggers": List<dynamic>.from(triggers.map((x) => x)),
     "therapyGoals": List<dynamic>.from(therapyGoals.map((x) => x)),
-    "dailyRoutine": List<dynamic>.from(dailyRoutine.map((x) => x)),
     "tags": List<dynamic>.from(tags.map((x) => x)),
   };
 
@@ -50,14 +50,17 @@ class CreateChildProfileRequest {
     /// Add JSON data as fields
     final jsonData = toJson();
     jsonData.forEach((key, value) {
-      if (value is List) {
-        for (var item in value) {
-          formData.fields.add(MapEntry(key, item.toString()));
-        }
-      } else {
-        formData.fields.add(MapEntry(key, value.toString()));
-      }
+      final entries = switch (value) {
+        List list => list.map(
+          (item) => MapEntry(key, NetHelperUtils.formatValue(item)),
+        ),
+        _ => [MapEntry(key, value.toString())],
+      };
+      formData.fields.addAll(entries);
     });
+
+    ///Add daily routine
+  formData.fields.add(MapEntry('dailyRoutine', json.encode(dailyRoutine)));
 
     /// Add the file if it exists
     formData.files.add(MapEntry('avatar', avatar));
@@ -70,5 +73,21 @@ class CreateChildProfileRequest {
     print(formData.fields);
     return formData;
   }
+}
 
+class RoutineInfo {
+  final int? id;
+  final String time;
+  final String routine;
+
+  RoutineInfo({required this.time, required this.routine, this.id});
+
+  factory RoutineInfo.empty() {
+    return RoutineInfo(time: '', routine: '');
+  }
+
+  factory RoutineInfo.fromJson(Map<String, dynamic> json) =>
+      RoutineInfo(time: json["time"], routine: json["routine"]);
+
+  Map<String, dynamic> toJson() => {"time": time, "routine": routine};
 }

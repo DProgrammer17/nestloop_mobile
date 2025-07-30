@@ -9,7 +9,10 @@ import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
 import 'package:nest_loop_mobile/features/child_profile/state/child_profile_notifier.dart';
 import 'package:nest_loop_mobile/features/auth/sign_up/widgets/textfield_outer_tile.dart';
+import 'package:nest_loop_mobile/features/child_profile/widgets/routine_setup_field.dart';
+import 'package:nest_loop_mobile/network/api/child_profiles/request/create_child_profile_request.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
+import 'package:nest_loop_mobile/utils/helper_utils.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_back_button.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/app_button.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/casing_app_text_field.dart';
@@ -59,18 +62,82 @@ class ChildProfileSecondPage extends ConsumerWidget {
             hintText: AppStrings.therapyGoalsIfHint,
             horizontalPadding: 0,
           ),
-          CasingAppTextfield(
-            controller: ref.watch(childProfileNotifier).dailyRoutineController,
+          WidgetCasing(
             outerContent: TextFieldOuterTile(
               leading: SvgPicture.asset(SvgAssets.routineIcon, height: 24.ah),
               title: AppStrings.dailyRoutineIf,
+              suffixIcon: InkWell(
+                onTap: () {
+                  if (ref.watch(childProfileNotifier).childRoutine.isEmpty) {
+                    HelperUtils.executeMultiple(
+                      count: 2,
+                      action: () => ref
+                          .watch(childProfileNotifier.notifier)
+                          .addToRoutines(
+                            RoutineInfo(
+                              id: ref
+                                  .watch(childProfileNotifier)
+                                  .childRoutine
+                                  .length,
+                              time: '',
+                              routine: '',
+                            ),
+                          ),
+                    );
+                    return;
+                  }
+                  ref
+                      .watch(childProfileNotifier.notifier)
+                      .addToRoutines(
+                        RoutineInfo(
+                          id: ref
+                              .watch(childProfileNotifier)
+                              .childRoutine
+                              .length,
+                          time: '',
+                          routine: '',
+                        ),
+                      );
+                },
+                child: Icon(
+                  CupertinoIcons.plus_circle_fill,
+                  size: 25.ar,
+                  color: AppColors.primaryOrange,
+                ),
+              ),
             ),
-            hintText: AppStrings.dailyRoutineIfHint,
-            horizontalPadding: 0,
+            content: Column(
+              children: List.generate(
+                ref.watch(childProfileNotifier).childRoutine.isNotEmpty
+                    ? ref.watch(childProfileNotifier).childRoutine.length
+                    : 1,
+                (index) => RoutineSetupField(
+                  onTimeChanged: (time) => ref
+                      .watch(childProfileNotifier.notifier)
+                      .editRoutineInfo(id: index, time: time),
+                  onRoutineChanged: (routine) => ref
+                      .watch(childProfileNotifier.notifier)
+                      .editRoutineInfo(id: index, routine: routine),
+                  removeAction: () => ref
+                      .watch(childProfileNotifier.notifier)
+                      .removeFromRoutines(index),
+                ),
+              ),
+            ),
           ),
+          // CasingAppTextfield(
+          //   controller: ref.watch(childProfileNotifier).dailyRoutineController,
+          //   outerContent: TextFieldOuterTile(
+          //     leading: SvgPicture.asset(SvgAssets.routineIcon, height: 24.ah),
+          //     title: AppStrings.dailyRoutineIf,
+          //   ),
+          //   hintText: AppStrings.dailyRoutineIfHint,
+          //   horizontalPadding: 0,
+          // ),
           8.sbH,
           UploadDocsTile(
-            files: (files)=> ref.watch(childProfileNotifier.notifier).updateChildDocs(files),
+            files: (files) =>
+                ref.watch(childProfileNotifier.notifier).updateChildDocs(files),
           ),
           16.sbH,
           WidgetCasing(
@@ -251,7 +318,9 @@ class ChildProfileSecondPage extends ConsumerWidget {
           Divider(thickness: 1.aw, color: AppColors.slateCharcoal06),
           16.sbH,
           AppButton(
-            onTap: ()=> ref.watch(childProfileNotifier.notifier).validateCreateChildProfileCall(context),
+            onTap: () => ref
+                .watch(childProfileNotifier.notifier)
+                .validateCreateChildProfileCall(context),
             title: AppStrings.saveProfile,
             buttonIcon: Icon(
               CupertinoIcons.checkmark_alt_circle_fill,

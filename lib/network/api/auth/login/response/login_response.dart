@@ -3,14 +3,17 @@ import 'package:nest_loop_mobile/network/net_utils/enums/user_roles.dart';
 class LoginResponse {
   final String? token;
   final User? user;
+  final bool isNewUser;
 
   LoginResponse({
     this.token,
     this.user,
+    this.isNewUser = false,
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
     token: json["token"],
+    isNewUser: json["isNewUser"],
     user: json["user"] == null ? null : User.fromJson(json["user"]),
   );
 }

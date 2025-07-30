@@ -1,10 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nest_loop_mobile/core/constants/app_assets.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/services/app_storage.dart';
 import 'package:nest_loop_mobile/core/utility_state/docs/upload_doc_notifier.dart';
+import 'package:nest_loop_mobile/features/child_profile/state/child_diagnosis.dart';
 import 'package:nest_loop_mobile/features/child_profile/state/child_profile_vm.dart';
 import 'package:nest_loop_mobile/features/auth/sign_up/state/profile_image/profile_image_notifier.dart';
 import 'package:nest_loop_mobile/features/child_profile/ui/child_profile_summary.dart';
@@ -47,9 +51,12 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
       state = state.copyWith(diagnosis: diagnosis);
   void updateShowAllergies(bool show) =>
       state = state.copyWith(showAllergies: show);
-  void updateShowTriggers(bool? show) => state = state.copyWith(showTriggers: show);
-  void updateChildDocs(List<File> files) => state = state.copyWith(childDocs: files);
-  void toggleLoading(bool loading) => state = state.copyWith(isLoading: loading);
+  void updateShowTriggers(bool? show) =>
+      state = state.copyWith(showTriggers: show);
+  void updateChildDocs(List<File> files) =>
+      state = state.copyWith(childDocs: files);
+  void toggleLoading(bool loading) =>
+      state = state.copyWith(isLoading: loading);
 
   void addToTags(String tag) {
     List<String> interimList = state.tags.toList();
@@ -64,6 +71,47 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
     List<String> interimList = state.tags.toList();
     interimList = interimList..remove(tag);
     state = state.copyWith(tags: interimList.toList());
+  }
+
+  void editRoutineInfo({required int id, String? time, String? routine}) {
+    RoutineInfo routineInfo = RoutineInfo.empty();
+    bool exists = false;
+    if (state.childRoutine.any((e) => e.id == id)) {
+      routineInfo = state.childRoutine.firstWhere((e) => e.id == id);
+      exists = true;
+      removeFromRoutines(id);
+    }
+    if (time.isNotBlank) {
+      routineInfo = RoutineInfo(
+        id: id,
+        time: time!,
+        routine: exists ? routineInfo.routine : '',
+      );
+    }
+    if (routine.isNotBlank) {
+      routineInfo = RoutineInfo(
+        id: id,
+        time: exists ? routineInfo.time : '',
+        routine: routine!,
+      );
+    }
+
+    addToRoutines(routineInfo);
+  }
+
+  void addToRoutines(RoutineInfo info) {
+    List<RoutineInfo> interimList = state.childRoutine.toList();
+    if (interimList.any((e) => (e.id == info.id))) {
+      interimList = interimList.toList()..remove(info);
+    }
+    interimList = interimList.toList()..add(info);
+    state = state.copyWith(childRoutine: interimList.toList());
+  }
+
+  void removeFromRoutines(int index) {
+    List<RoutineInfo> interimList = state.childRoutine.toList();
+    interimList = interimList..removeWhere((e) => e.id == index);
+    state = state.copyWith(childRoutine: interimList.toList());
   }
 
   void addToChildDocs(File doc) {
@@ -91,6 +139,20 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
     List<ChildData> interimList = state.childProfiles.toList();
     interimList = interimList..remove(child);
     state = state.copyWith(childProfiles: interimList.toList());
+  }
+
+  Future<void> loadDiagnoses() async {
+    final String jsonString = await rootBundle.loadString(
+      JSONAssets.childDiagnosis,
+    );
+    final Map<String, dynamic> jsonMap = json.decode(jsonString);
+    final List<dynamic> diagnosesJson = jsonMap['diagnoses'];
+
+    List<ChildDiagnosis> diagnosis = diagnosesJson
+        .map((json) => ChildDiagnosis.fromJson(json as Map<String, dynamic>))
+        .toList();
+
+    state = state.copyWith(childDiagnosis: diagnosis);
   }
 
   void clearProfileFields({
@@ -126,7 +188,7 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
   }
 
   void validateChildProfileFirstPage(BuildContext context) {
-    if(state.profileImage == null){
+    if (state.profileImage == null) {
       AppMessages.showErrorMessage(
         context: context,
         message: ErrorStrings.pleaseUploadAPhoto,
@@ -135,7 +197,6 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
     }
     if (state.profileImage != null &&
         state.nameController.text.isNotEmpty &&
-        state.ageController.text.isNotEmpty &&
         state.dobController.text.isNotEmpty &&
         state.gender.isNotBlank) {
       state.profilePageController.nextPage(
@@ -155,7 +216,6 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
   Future<void> validateCreateChildProfileCall(BuildContext context) async {
     if (state.profileImage != null &&
         state.nameController.text.isNotEmpty &&
-        state.ageController.text.isNotEmpty &&
         state.dobController.text.isNotEmpty &&
         state.gender.isNotBlank &&
         state.childDocs.isNotEmpty) {
@@ -187,8 +247,12 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
   Future<void> createChildProfile(BuildContext context) async {
     state = state.copyWith(isLoading: true);
     final authToken = await AppStorage.getStringPref(ConfigStrings.authToken);
-    List<MultipartFile> documents = await HelperUtils.convertFilesToMultipart(state.childDocs);
-    final avatar = await HelperUtils.convertFileToMultipart(state.profileImage!);
+    List<MultipartFile> documents = await HelperUtils.convertFilesToMultipart(
+      state.childDocs,
+    );
+    final avatar = await HelperUtils.convertFileToMultipart(
+      state.profileImage!,
+    );
 
     try {
       final response = await ChildProfileApi.createChildProfile(
@@ -201,7 +265,7 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
           allergies: state.allergiesController.text.toStringList,
           triggers: state.triggersController.text.toStringList,
           therapyGoals: state.therapyGoalsController.text.toStringList,
-          dailyRoutine: state.dailyRoutineController.text.toStringList,
+          dailyRoutine: state.childRoutine,
           tags: state.tags,
           documents: documents,
           avatar: avatar,
@@ -253,7 +317,7 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
           allergies: state.allergiesController.text.toStringList,
           triggers: state.triggersController.text.toStringList,
           therapyGoals: state.therapyGoalsController.text.toStringList,
-          dailyRoutine: state.therapyGoalsController.text.toStringList,
+          dailyRoutine: state.childRoutine,
           tags: state.tags,
         ),
       );

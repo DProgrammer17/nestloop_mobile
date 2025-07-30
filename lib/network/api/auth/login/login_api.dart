@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/network/api/auth/login/request/apple_auth_request.dart';
-import 'package:nest_loop_mobile/network/api/auth/login/request/google_login_request.dart';
 import 'package:nest_loop_mobile/network/api/auth/login/request/login_request.dart';
 import 'package:nest_loop_mobile/network/api/auth/login/response/login_response.dart';
 import 'package:nest_loop_mobile/network/api/auth/signUp/request/email_verification_request.dart';

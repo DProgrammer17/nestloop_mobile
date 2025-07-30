@@ -6,6 +6,7 @@ import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/features/profiles/state/profile_notifier.dart';
 import 'package:nest_loop_mobile/features/profiles/ui/add_carer/add_carer_page.dart';
 import 'package:nest_loop_mobile/features/profiles/widgets/care_team_info_tile.dart';
+import 'package:nest_loop_mobile/features/taskboard/ui/task_board_page.dart';
 import 'package:nest_loop_mobile/utils/extensions/navigation.dart';
 import 'package:nest_loop_mobile/widgets/page_widgets/floating_button_scaffold.dart';
 import 'package:nest_loop_mobile/widgets/page_widgets/no_data_page.dart';
@@ -72,6 +73,7 @@ class _CareTeamPageState extends ConsumerState<CareTeamPage> {
                   return Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.ah),
                     child: CareTeamInfoTile(
+                      onTap: ()=> context.pushSuper(TaskBoardPage()),
                       model: ref
                           .watch(profilesNotifier)
                           .careTeam

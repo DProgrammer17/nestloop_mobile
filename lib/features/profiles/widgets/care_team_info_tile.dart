@@ -20,7 +20,8 @@ import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 
 class CareTeamInfoTile extends StatelessWidget {
   final ChildCareProviderResponse model;
-  const CareTeamInfoTile({super.key, required this.model});
+  final VoidCallback onTap;
+  const CareTeamInfoTile({super.key, required this.model, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -32,93 +33,96 @@ class CareTeamInfoTile extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(8.aw, 0, 8.aw, 8.ah),
           content: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(16.ar),
-                        child: Image.asset(
-                          AppAssets.profileImagePlaceholder,
-                          height: 58.ah,
-                          width: 58.aw,
-                          fit: BoxFit.cover,
+              InkWell(
+                onTap: onTap,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16.ar),
+                          child: Image.asset(
+                            AppAssets.profileImagePlaceholder,
+                            height: 58.ah,
+                            width: 58.aw,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      12.sbW,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                width: 170.aw,
-                                child: Text(
-                                  model.parent?.fullName ?? model.careProvider?.fullName ?? '',
-                                  style: AppTextStyles.h3Inter(context),
+                        12.sbW,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  width: 170.aw,
+                                  child: Text(
+                                    model.parent?.fullName ?? model.careProvider?.fullName ?? '',
+                                    style: AppTextStyles.h3Inter(context),
+                                  ),
                                 ),
-                              ),
-                              5.sbW,
-                              Icon(
-                                Icons.verified_sharp,
-                                size: 18.ar,
-                                color: AppColors.baseBlue,
-                              ),
-                            ],
+                                5.sbW,
+                                Icon(
+                                  Icons.verified_sharp,
+                                  size: 18.ar,
+                                  color: AppColors.baseBlue,
+                                ),
+                              ],
+                            ),
+                            2.sbH,
+                            Text(
+                              model.parent?.email ?? model.careProvider?.email ?? '',
+                              style: AppTextStyles.body2RegularInter(
+                                context,
+                              ).copyWith(color: AppColors.slateCharcoal60),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    if (model.parent != null) ...[
+                      Container(
+                        margin: EdgeInsets.only(right: 16.aw),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(
+                          vertical: 6.ah,
+                          horizontal: 8.aw,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40.ar),
+                          color: AppColors.neutralWhite,
+                          border: Border.all(
+                            color: AppColors.highlightCTAOrange,
+                            width: 1.aw,
                           ),
-                          2.sbH,
-                          Text(
-                            model.parent?.email ?? model.careProvider?.email ?? '',
-                            style: AppTextStyles.body2RegularInter(
-                              context,
-                            ).copyWith(color: AppColors.slateCharcoal60),
-                          ),
-                        ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              SvgAssets.securityIcon,
+                              height: 14.ah,
+                            ),
+                            4.sbW,
+                            Text(
+                              AppStrings.parent,
+                              style: AppTextStyles.body1RegularInter(context)
+                                  .copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.slateCharcoal80,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-                  ),
-                  const Spacer(),
-                  if (model.parent != null) ...[
-                    Container(
-                      margin: EdgeInsets.only(right: 16.aw),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(
-                        vertical: 6.ah,
-                        horizontal: 8.aw,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40.ar),
-                        color: AppColors.neutralWhite,
-                        border: Border.all(
-                          color: AppColors.highlightCTAOrange,
-                          width: 1.aw,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            SvgAssets.securityIcon,
-                            height: 14.ah,
-                          ),
-                          4.sbW,
-                          Text(
-                            AppStrings.parent,
-                            style: AppTextStyles.body1RegularInter(context)
-                                .copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.slateCharcoal80,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
-                ],
+                ),
               ),
               16.sbH,
               Builder(

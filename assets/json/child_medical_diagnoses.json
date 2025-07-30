@@ -1,0 +1,514 @@
+{
+  "diagnoses": [
+    {
+      "name": "Asthma",
+      "code": "J45",
+      "category": "Respiratory"
+    },
+    {
+      "name": "Acute Otitis Media",
+      "code": "H66",
+      "category": "Ear Infections"
+    },
+    {
+      "name": "ADHD (Attention-Deficit/Hyperactivity Disorder)",
+      "code": "F90",
+      "category": "Neurodevelopmental"
+    },
+    {
+      "name": "Gastroenteritis",
+      "code": "A09",
+      "category": "Digestive"
+    },
+    {
+      "name": "Allergic Rhinitis",
+      "code": "J30",
+      "category": "Allergy"
+    },
+    {
+      "name": "Chickenpox (Varicella)",
+      "code": "B01",
+      "category": "Infectious"
+    },
+    {
+      "name": "Tonsillitis",
+      "code": "J03",
+      "category": "Respiratory"
+    },
+    {
+      "name": "Croup",
+      "code": "J05",
+      "category": "Respiratory"
+    },
+    {
+      "name": "Bronchiolitis",
+      "code": "J21",
+      "category": "Respiratory"
+    },
+    {
+      "name": "Pneumonia",
+      "code": "J18",
+      "category": "Respiratory"
+    },
+    {
+      "name": "Diabetes Type 1",
+      "code": "E10",
+      "category": "Endocrine"
+    },
+    {
+      "name": "Obesity",
+      "code": "E66",
+      "category": "Endocrine"
+    },
+    {
+      "name": "Epilepsy",
+      "code": "G40",
+      "category": "Neurological"
+    },
+    {
+      "name": "Febrile Seizures",
+      "code": "R56",
+      "category": "Neurological"
+    },
+    {
+      "name": "Cerebral Palsy",
+      "code": "G80",
+      "category": "Neurological"
+    },
+    {
+      "name": "Autism Spectrum Disorder",
+      "code": "F84",
+      "category": "Neurodevelopmental"
+    },
+    {
+      "name": "Down Syndrome",
+      "code": "Q90",
+      "category": "Genetic"
+    },
+    {
+      "name": "Eczema (Atopic Dermatitis)",
+      "code": "L20",
+      "category": "Dermatological"
+    },
+    {
+      "name": "Psoriasis",
+      "code": "L40",
+      "category": "Dermatological"
+    },
+    {
+      "name": "Urinary Tract Infection (UTI)",
+      "code": "N39",
+      "category": "Urinary"
+    },
+    {
+      "name": "Enuresis (Bedwetting)",
+      "code": "R32",
+      "category": "Urinary"
+    },
+    {
+      "name": "Constipation",
+      "code": "K59",
+      "category": "Digestive"
+    },
+    {
+      "name": "Iron Deficiency Anemia",
+      "code": "D50",
+      "category": "Hematological"
+    },
+    {
+      "name": "Leukemia",
+      "code": "C91",
+      "category": "Hematological"
+    },
+    {
+      "name": "Sickle Cell Disease",
+      "code": "D57",
+      "category": "Hematological"
+    },
+    {
+      "name": "Food Allergies",
+      "code": "T78",
+      "category": "Allergy"
+    },
+    {
+      "name": "Hay Fever",
+      "code": "J30",
+      "category": "Allergy"
+    },
+    {
+      "name": "Measles",
+      "code": "B05",
+      "category": "Infectious"
+    },
+    {
+      "name": "Mumps",
+      "code": "B26",
+      "category": "Infectious"
+    },
+    {
+      "name": "Rubella",
+      "code": "B06",
+      "category": "Infectious"
+    },
+    {
+      "name": "Scarlet Fever",
+      "code": "A38",
+      "category": "Infectious"
+    },
+    {
+      "name": "Impetigo",
+      "code": "L01",
+      "category": "Dermatological"
+    },
+    {
+      "name": "Ringworm (Tinea)",
+      "code": "B35",
+      "category": "Fungal Infections"
+    },
+    {
+      "name": "Lice Infestation",
+      "code": "B85",
+      "category": "Parasitic Infections"
+    },
+    {
+      "name": "Scabies",
+      "code": "B86",
+      "category": "Parasitic Infections"
+    },
+    {
+      "name": "Conjunctivitis (Pink Eye)",
+      "code": "H10",
+      "category": "Ophthalmological"
+    },
+    {
+      "name": "Vision Problems",
+      "code": "H52",
+      "category": "Ophthalmological"
+    },
+    {
+      "name": "Otitis Externa",
+      "code": "H60",
+      "category": "Ear Infections"
+    },
+    {
+      "name": "Hearing Loss",
+      "code": "H91",
+      "category": "Ear Infections"
+    },
+    {
+      "name": "Speech Delay",
+      "code": "R47",
+      "category": "Developmental"
+    },
+    {
+      "name": "Developmental Delay",
+      "code": "F89",
+      "category": "Developmental"
+    },
+    {
+      "name": "Selective Mutism",
+      "code": "F94.0",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Separation Anxiety Disorder",
+      "code": "F93.0",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Oppositional Defiant Disorder",
+      "code": "F91.3",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Conduct Disorder",
+      "code": "F91.1",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Anxiety Disorder",
+      "code": "F41",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Depressive Disorder",
+      "code": "F32",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Appendicitis",
+      "code": "K35",
+      "category": "Digestive"
+    },
+    {
+      "name": "Hydrocele",
+      "code": "N43",
+      "category": "Urological"
+    },
+    {
+      "name": "Undescended Testicle",
+      "code": "Q53",
+      "category": "Urological"
+    },
+    {
+      "name": "Inguinal Hernia",
+      "code": "K40",
+      "category": "Surgical"
+    },
+    {
+      "name": "Fractures",
+      "code": "S52",
+      "category": "Musculoskeletal"
+    },
+    {
+      "name": "Sprains and Strains",
+      "code": "S93",
+      "category": "Musculoskeletal"
+    },
+    {
+      "name": "Scoliosis",
+      "code": "M41",
+      "category": "Musculoskeletal"
+    },
+    {
+      "name": "Vitamin D Deficiency",
+      "code": "E55",
+      "category": "Nutritional"
+    },
+    {
+      "name": "Rickets",
+      "code": "E55.0",
+      "category": "Nutritional"
+    },
+    {
+      "name": "Obstructive Sleep Apnea",
+      "code": "G47.3",
+      "category": "Respiratory"
+    },
+    {
+      "name": "Night Terrors",
+      "code": "F51.4",
+      "category": "Sleep Disorders"
+    },
+    {
+      "name": "Insomnia",
+      "code": "F51.0",
+      "category": "Sleep Disorders"
+    },
+    {
+      "name": "Migraine",
+      "code": "G43",
+      "category": "Neurological"
+    },
+    {
+      "name": "Headache",
+      "code": "R51",
+      "category": "Neurological"
+    },
+    {
+      "name": "Mononucleosis",
+      "code": "B27",
+      "category": "Infectious"
+    },
+    {
+      "name": "Bipolar Disorder",
+      "code": "F31",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Schizophrenia",
+      "code": "F20",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Obsessive-Compulsive Disorder (OCD)",
+      "code": "F42",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Post-Traumatic Stress Disorder (PTSD)",
+      "code": "F43.1",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Panic Disorder",
+      "code": "F41.0",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Social Anxiety Disorder",
+      "code": "F40.1",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Adjustment Disorder",
+      "code": "F43.2",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Learning Disability",
+      "code": "F81",
+      "category": "Developmental"
+    },
+    {
+      "name": "Dyslexia",
+      "code": "F81.0",
+      "category": "Developmental"
+    },
+    {
+      "name": "Dyscalculia",
+      "code": "F81.2",
+      "category": "Developmental"
+    },
+    {
+      "name": "Dysgraphia",
+      "code": "F81.81",
+      "category": "Developmental"
+    },
+    {
+      "name": "Nonverbal Learning Disorder",
+      "code": "F81.9",
+      "category": "Developmental"
+    },
+    {
+      "name": "Sensory Processing Disorder",
+      "code": "F88",
+      "category": "Developmental"
+    },
+    {
+      "name": "Gender Dysphoria",
+      "code": "F64",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Reactive Attachment Disorder",
+      "code": "F94.1",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Disinhibited Social Engagement Disorder",
+      "code": "F94.2",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Conduct Disorder",
+      "code": "F91.1",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Feeding Disorder of Infancy or Early Childhood",
+      "code": "F98.2",
+      "category": "Developmental"
+    },
+    {
+      "name": "Pica",
+      "code": "F98.3",
+      "category": "Developmental"
+    },
+    {
+      "name": "Rumination Disorder",
+      "code": "F98.21",
+      "category": "Developmental"
+    },
+    {
+      "name": "Sleepwalking Disorder",
+      "code": "F51.3",
+      "category": "Sleep Disorders"
+    },
+    {
+      "name": "Nightmare Disorder",
+      "code": "F51.5",
+      "category": "Sleep Disorders"
+    },
+    {
+      "name": "Childhood-Onset Fluency Disorder (Stuttering)",
+      "code": "F80.81",
+      "category": "Developmental"
+    },
+    {
+      "name": "Speech Sound Disorder",
+      "code": "F80.0",
+      "category": "Developmental"
+    },
+    {
+      "name": "Language Disorder",
+      "code": "F80.2",
+      "category": "Developmental"
+    },
+    {
+      "name": "Intellectual Disability (Mild)",
+      "code": "F70",
+      "category": "Developmental"
+    },
+    {
+      "name": "Intellectual Disability (Moderate)",
+      "code": "F71",
+      "category": "Developmental"
+    },
+    {
+      "name": "Intellectual Disability (Severe)",
+      "code": "F72",
+      "category": "Developmental"
+    },
+    {
+      "name": "Childhood Schizophrenia",
+      "code": "F20.8",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Early-Onset Bipolar Disorder",
+      "code": "F31.8",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Major Depressive Disorder",
+      "code": "F33",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Anorexia Nervosa",
+      "code": "F50.0",
+      "category": "Eating Disorders"
+    },
+    {
+      "name": "Bulimia Nervosa",
+      "code": "F50.2",
+      "category": "Eating Disorders"
+    },
+    {
+      "name": "Avoidant/Restrictive Food Intake Disorder",
+      "code": "F50.89",
+      "category": "Eating Disorders"
+    },
+    {
+      "name": "Encopresis",
+      "code": "R15",
+      "category": "Digestive"
+    },
+    {
+      "name": "Tic Disorders",
+      "code": "F95",
+      "category": "Neurological"
+    },
+    {
+      "name": "Tourette Syndrome",
+      "code": "F95.2",
+      "category": "Neurological"
+    },
+    {
+      "name": "Childhood-Onset Conduct Disorder",
+      "code": "F91.0",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Intermittent Explosive Disorder",
+      "code": "F63.81",
+      "category": "Psychiatric"
+    },
+    {
+      "name": "Trichotillomania (Hair-Pulling Disorder)",
+      "code": "F63.3",
+      "category": "Psychiatric"
+    }
+  ]
+}

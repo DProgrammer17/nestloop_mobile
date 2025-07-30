@@ -19,11 +19,25 @@ import 'package:nest_loop_mobile/widgets/utility_widgets/dropdowns/app_platform_
 import 'package:nest_loop_mobile/widgets/utility_widgets/onboarding_header_widget.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 
-class ChildProfileFirstStep extends ConsumerWidget {
+class ChildProfileFirstStep extends ConsumerStatefulWidget {
   const ChildProfileFirstStep({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ChildProfileFirstStep> createState() => _ChildProfileFirstStepState();
+}
+
+class _ChildProfileFirstStepState extends ConsumerState<ChildProfileFirstStep> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(childProfileNotifier.notifier).loadDiagnoses();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -49,20 +63,20 @@ class ChildProfileFirstStep extends ConsumerWidget {
             hintText: AppStrings.childNameHint,
             horizontalPadding: 0,
           ),
-          CasingAppTextfield(
-            isRequired: true,
-            controller: ref.watch(childProfileNotifier).ageController,
-            outerContent: TextFieldOuterTile(
-              leading: Icon(
-                Icons.bedroom_baby_outlined,
-                size: 21.ar,
-                color: AppColors.slateCharcoalMain,
-              ),
-              title: AppStrings.childAge,
-            ),
-            hintText: AppStrings.childAgeHint,
-            horizontalPadding: 0,
-          ),
+          // CasingAppTextfield(
+          //   isRequired: true,
+          //   controller: ref.watch(childProfileNotifier).ageController,
+          //   outerContent: TextFieldOuterTile(
+          //     leading: Icon(
+          //       Icons.bedroom_baby_outlined,
+          //       size: 21.ar,
+          //       color: AppColors.slateCharcoalMain,
+          //     ),
+          //     title: AppStrings.childAge,
+          //   ),
+          //   hintText: AppStrings.childAgeHint,
+          //   horizontalPadding: 0,
+          // ),
           CasingAppTextfield(
             isRequired: true,
             controller: ref.watch(childProfileNotifier).dobController,
@@ -114,7 +128,7 @@ class ChildProfileFirstStep extends ConsumerWidget {
               onChanged: (diagnosis) => ref
                   .watch(childProfileNotifier.notifier)
                   .updateDiagnosis(diagnosis),
-              items: ['', 'o'],
+              items: ref.watch(childProfileNotifier).childDiagnosis.map((e) => e.name).toList(),
               dropdownValue: ValueNotifier(
                 ref.watch(childProfileNotifier).diagnosis,
               ),

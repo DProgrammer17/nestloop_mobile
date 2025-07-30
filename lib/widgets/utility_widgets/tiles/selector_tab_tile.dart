@@ -7,12 +7,14 @@ import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 class SelectorTabTile extends StatelessWidget {
   final String selectedValue;
   final List<String> options;
-  final ValueChanged onTap;
+  final ValueChanged<String> onTap;
+  final EdgeInsets? indicatorPadding;
   const SelectorTabTile({
     super.key,
     required this.selectedValue,
     required this.options,
     required this.onTap,
+    this.indicatorPadding,
   });
 
   @override
@@ -28,7 +30,7 @@ class SelectorTabTile extends StatelessWidget {
           (index) => InkWell(
             onTap: ()=> onTap.call(options.elementAt(index)),
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10.ah, horizontal: 20.aw),
+              padding: indicatorPadding ?? EdgeInsets.symmetric(vertical: 10.ah, horizontal: 20.aw),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: selectedValue.contains(options.elementAt(index))

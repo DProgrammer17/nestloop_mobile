@@ -13,7 +13,7 @@ abstract class AppStrings {
       'Add details, upload plans, and set goals.';
   static const onboardingTitle3 = 'Join a community of\ndiverse carers.';
   static const onboardingSubtitle3 = 'Share tips and find local support.';
-  static const onboardingTitle4 = 'Find tools that work\nfor perfectly you.';
+  static const onboardingTitle4 = 'Find tools that work\n perfectly for you.';
   static const onboardingSubtitle4 = 'From task boards to SOS alerts.';
   static const skip = 'Skip';
   static const getStarted = 'Get Started';
@@ -92,8 +92,10 @@ abstract class AppStrings {
       'What are their goals? (e.g., communication)';
   static const dailyRoutine = 'Daily Routine';
   static const dailyRoutineIf = 'Daily Routine (if any)';
-  static const dailyRoutineIfHint =
-      'Share their routine (e.g., 8 AM: Breakfast)';
+  static const dailyRoutineIfHint = 'Share their routine (e.g., 8 AM: Breakfast)';
+  static const timeHint = '.. 14:00';
+  static const routineTimeHint = 'Share the time of the  routine (e.g., 08:00 or 14:00)';
+  static const routineDetailHint = 'e.g., Breakfast';
   static const uploadDocuments = 'Upload Documents';
   static const tabToUpload = 'Tap to upload ';
   static const tabToUploadTypes = '(PDF, up to 5MB)';
@@ -206,6 +208,48 @@ abstract class AppStrings {
   static const invitationSent = 'Invitation Sent';
   static String nameWillReceiveEmail(String name) =>
       '$name will receive an email with instructions to join Morgan’s care team.';
+  static const assign = "Assign";
+  static const repeat = "Repeat";
+  static const taskBoard = "Task Board";
+  static const calender = "Calendar";
+  static const list = "List";
+  static const noTasksYet = "No tasks yet";
+  static const startByUploadingYourFirstTask = "Start by uploading your first task to get organized and see the task calendar.";
+  static const newTask = "New Task";
+  static const createATask = "Create a task for your daily care schedule";
+  static const taskName = "Task Name";
+  static const taskNameHint = "Enter the task name.";
+  static const taskCategory = "Task Category";
+  static const medication = "Medication";
+  static const medicationSubText = "Pills, injections";
+  static const therapy = "Therapy";
+  static const therapySubText = "PT, OT, speech";
+  static const appointment = "Appointment";
+  static const appointmentSubText = "Doctor, specialist";
+  static const other = "Other";
+  static const schedule = "Schedule";
+  static const monthDayYear = "mm/dd/yyyy";
+  static const scheduleAddressHint = "e.g. Children’s Hospital, Room 302";
+  static const setRecurring = "Set as Recurring?";
+  static const recurringTasksDaily = "Recurring tasks would be repeated daily";
+  static const assignAndNotify = "Assign & Notify";
+  static const selectCareGiver = "Select Care Giver";
+  static const sendNotifications = "Send Notifications";
+  static const notifyAssignedCareGivers = "Notify assigned care givers before task is due.";
+  static const notes = "Notes";
+  static const addAdditionalDetails = "Add any additional details or instructions here";
+  static const upcoming = "Upcoming";
+  static const quickActions = "Quick Actions";
+  static const duplicate = "Duplicate";
+  static const reschedule = "Reschedule";
+  static const share = "Share";
+  static const details = "Details";
+  static const location = "Location";
+  static const assignedTo = "Assigned to";
+  static const markAsComplete = "Mark as Complete";
+  static const editTask = "Edit Task";
+  static const all = "All";
+  static const task = "Task";
 }
 
 abstract class ErrorStrings {

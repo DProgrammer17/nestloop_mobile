@@ -1,4 +1,5 @@
 import 'package:nest_loop_mobile/network/api/carer/response/carer_invite_response.dart';
+import 'package:nest_loop_mobile/network/api/child_profiles/request/create_child_profile_request.dart';
 import 'package:nest_loop_mobile/network/net_utils/enums/care_permissions.dart';
 import 'package:nest_loop_mobile/network/net_utils/enums/user_roles.dart';
 
@@ -98,7 +99,7 @@ class ChildData {
   final List<String>? allergies;
   final List<String>? triggers;
   final List<String>? therapyGoals;
-  final List<String>? dailyRoutine;
+  final List<RoutineInfo>? dailyRoutine;
   final String? medicalHistory;
   final List<String>? customTags;
   final List<Document>? documents;
@@ -142,7 +143,11 @@ class ChildData {
         : List<String>.from(json["therapyGoals"]!),
     dailyRoutine: json["dailyRoutine"] == null
         ? []
-        : List<String>.from(json["dailyRoutine"]!),
+        : List<RoutineInfo>.from(
+      (json["dailyRoutine"] as List<dynamic>).map(
+            (x) => RoutineInfo.fromJson(x),
+      ),
+    ),
     diagnoses: json["diagnoses"] == null
         ? []
         : List<String>.from(json["diagnoses"]!),

@@ -82,7 +82,14 @@ class LoginNotifier extends Notifier<LoginModel> {
       // Trigger the Google Sign-In flow.
       final googleUser = await GoogleSignIn(
         scopes: ['email'],
-      ).signIn();
+      ).signIn().catchError((e){
+        print('Google sign in exception->$e');
+        state = state.copyWith(isLoading: false);
+        if (context.mounted) {
+          AppMessages.showErrorMessage(context: context, message: e.toString());
+        }
+        return null;
+      });
       if (googleUser == null) return;
       final googleAuth = await googleUser.authentication;
       debugPrint('AUTH!!!!${googleAuth.idToken}\n\n\nSERVER AUTH${googleAuth.serverAuthCode}');
@@ -92,6 +99,9 @@ class LoginNotifier extends Notifier<LoginModel> {
       }
     } on Exception catch (e) {
       print('exception->$e');
+      if (context.mounted) {
+        AppMessages.showErrorMessage(context: context, message: e.toString());
+      }
     }
   }
 

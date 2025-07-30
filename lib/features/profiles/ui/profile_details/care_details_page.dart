@@ -5,6 +5,8 @@ import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
+import 'package:nest_loop_mobile/features/auth/sign_up/widgets/textfield_outer_tile.dart';
+import 'package:nest_loop_mobile/features/profiles/widgets/routine_info_tile.dart';
 import 'package:nest_loop_mobile/network/api/user/response/get_user_profile_response.dart';
 import 'package:nest_loop_mobile/utils/extensions/string_extensions.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
@@ -97,37 +99,39 @@ class CareDetailsPage extends StatelessWidget {
                       ],
                     ),
                   ],
+                ],
+              ),
+            ),
+            14.sbH,
+            WidgetCasing(
+              outerContent: SizedBox.shrink(),
+              padding: EdgeInsets.fromLTRB(6.aw, 0.ah, 6.aw, 6.ah),
+              content: Column(
+                children: [
                   if (model.dailyRoutine != null &&
                       model.dailyRoutine!.isNotEmpty) ...[
-                    14.sbH,
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SvgPicture.asset(SvgAssets.routineIcon, height: 22.ah),
-                        8.sbW,
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppStrings.dailyRoutine,
-                              style: AppTextStyles.h3Inter(context).copyWith(
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.slateCharcoal80,
-                              ),
-                            ),
-                            4.sbH,
-                            Padding(
-                              padding: EdgeInsets.only(left: 4.aw),
-                              child: Text(
-                                '⚈  ${(model.dailyRoutine ?? []).join(',').toCamelCase.replaceAll(',', '\n⚈ ')}',
-                                style: AppTextStyles.body2RegularInter(
-                                  context,
-                                ).copyWith(color: AppColors.slateCharcoal60),
-                              ),
-                            ),
-                          ],
+                    WidgetCasing(
+                      backgroundColor: AppColors.baseBackground,
+                      borderRadius: 18.ar,
+                      outerContent: SizedBox.shrink(),
+                      padding: EdgeInsets.fromLTRB(16.aw, 6.ah, 16.aw, 16.ah),
+                      content: TextFieldOuterTile(
+                        leading: SvgPicture.asset(
+                          SvgAssets.routineIcon,
+                          height: 22.ah,
                         ),
-                      ],
+                        title: AppStrings.dailyRoutine,
+                      ),
+                    ),
+                    6.sbH,
+                    Column(
+                      spacing: 6.ah,
+                      children: List.generate(
+                        model.dailyRoutine!.length,
+                            (index) => RoutineInfoTile(
+                          info: model.dailyRoutine!.elementAt(index),
+                        ),
+                      ),
                     ),
                   ],
                 ],

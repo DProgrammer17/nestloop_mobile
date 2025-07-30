@@ -2,6 +2,10 @@ import 'package:intl/intl.dart';
 
 extension DateToStringExtension on DateTime {
   String get fullDateMonthDayFormat => DateFormat.yMMMMd('en_US').format(this);
+
+  String get dayMonthYearFormat => DateFormat('d MMMM,y').format(this);
+
+  String get monthYearFormat => DateFormat('MMMM y').format(this);
 }
 
 extension DateTimeExtension on DateTime {
@@ -65,8 +69,19 @@ extension DateTimeExtension on DateTime {
       int newYear = (totalMonths / 12).floor();
       int newMonth = (totalMonths % 12) + 1;
       int lastDayOfTargetMonth = DateTime(newYear, newMonth + 1, 0).day;
-      int newDay = result.day > lastDayOfTargetMonth ? lastDayOfTargetMonth : result.day;
-      result = DateTime(newYear, newMonth, newDay, result.hour, result.minute, result.second, result.millisecond, result.microsecond);
+      int newDay = result.day > lastDayOfTargetMonth
+          ? lastDayOfTargetMonth
+          : result.day;
+      result = DateTime(
+        newYear,
+        newMonth,
+        newDay,
+        result.hour,
+        result.minute,
+        result.second,
+        result.millisecond,
+        result.microsecond,
+      );
     }
 
     if (months != 0) {
@@ -74,21 +89,39 @@ extension DateTimeExtension on DateTime {
       int newYear = (totalMonths / 12).floor();
       int newMonth = (totalMonths % 12) + 1;
       int lastDayOfTargetMonth = DateTime(newYear, newMonth + 1, 0).day;
-      int newDay = result.day > lastDayOfTargetMonth ? lastDayOfTargetMonth : result.day;
-      result = DateTime(newYear, newMonth, newDay, result.hour, result.minute, result.second, result.millisecond, result.microsecond);
+      int newDay = result.day > lastDayOfTargetMonth
+          ? lastDayOfTargetMonth
+          : result.day;
+      result = DateTime(
+        newYear,
+        newMonth,
+        newDay,
+        result.hour,
+        result.minute,
+        result.second,
+        result.millisecond,
+        result.microsecond,
+      );
     }
 
     // Add the time-based units
-    if (weeks != 0 || days != 0 || hours != 0 || minutes != 0 ||
-        seconds != 0 || milliseconds != 0 || microseconds != 0) {
-      result = result.add(Duration(
-        days: weeks * 7 + days,
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds,
-        milliseconds: milliseconds,
-        microseconds: microseconds,
-      ));
+    if (weeks != 0 ||
+        days != 0 ||
+        hours != 0 ||
+        minutes != 0 ||
+        seconds != 0 ||
+        milliseconds != 0 ||
+        microseconds != 0) {
+      result = result.add(
+        Duration(
+          days: weeks * 7 + days,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+          milliseconds: milliseconds,
+          microseconds: microseconds,
+        ),
+      );
     }
 
     return result;
@@ -147,5 +180,39 @@ extension DateTimeExtension on DateTime {
   /// Returns the last day of the month for this DateTime
   int get lastDayOfMonth {
     return DateTime(year, month + 1, 0).day;
+  }
+}
+
+extension TimeStringExtension on String {
+  String to12HourFormat() {
+    try {
+      // Split the time string by ':'
+      final parts = split(':');
+      if (parts.length != 2) {
+        throw FormatException('Invalid time format');
+      }
+
+      final hour = int.parse(parts[0]);
+      final minute = int.parse(parts[1]);
+
+      // Validate hour and minute ranges
+      if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+        throw FormatException('Invalid time values');
+      }
+
+      // Determine AM/PM
+      final period = hour >= 12 ? 'PM' : 'AM';
+
+      // Convert to 12-hour format
+      final displayHour = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+
+      // Format minute with leading zero if needed
+      final displayMinute = minute.toString().padLeft(2, '0');
+
+      return '$displayHour:$displayMinute$period';
+    } catch (e) {
+      // Return original string if parsing fails
+      return this;
+    }
   }
 }

@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
+import 'package:nest_loop_mobile/features/child_profile/state/child_diagnosis.dart';
 import 'package:nest_loop_mobile/features/child_profile/ui/child_profile_first_step.dart';
 import 'package:nest_loop_mobile/features/child_profile/ui/child_profile_second_page.dart';
+import 'package:nest_loop_mobile/network/api/child_profiles/request/create_child_profile_request.dart';
 import 'package:nest_loop_mobile/network/api/user/response/get_user_profile_response.dart';
 
 class ChildProfileVM {
@@ -24,7 +26,9 @@ class ChildProfileVM {
   final List<String> tags;
   final List<String> tagSuggestions;
   final List<File> childDocs;
+  final List<RoutineInfo> childRoutine;
   final List<ChildData> childProfiles;
+  final List<ChildDiagnosis> childDiagnosis;
   final File? profileImage;
   final String gender;
   final String diagnosis;
@@ -48,10 +52,12 @@ class ChildProfileVM {
       ChildProfileSecondPage(),
     ],
     this.childProfiles = const [],
+    this.childRoutine = const [],
     this.profileDocuments = const [],
     this.profileFileNames = const [],
     this.childDocs = const [],
     this.tags = const [],
+    this.childDiagnosis = const [],
     this.tagSuggestions = const [
       AppStrings.nonVerbal,
       AppStrings.sensorySensitive,
@@ -85,7 +91,9 @@ class ChildProfileVM {
     List<String>? profileFileNames,
     List<String>? tags,
     List<File>? childDocs,
+    List<RoutineInfo>? childRoutine,
     List<ChildData>? childProfiles,
+    List<ChildDiagnosis>? childDiagnosis,
     String? gender,
     String? diagnosis,
     int? profileCurrentPage,
@@ -112,6 +120,8 @@ class ChildProfileVM {
       profileDocuments: profileDocuments ?? this.profileDocuments,
       profileFileNames: profileFileNames ?? this.profileFileNames,
       childDocs: childDocs ?? this.childDocs,
+      childDiagnosis: childDiagnosis ?? this.childDiagnosis,
+      childRoutine: childRoutine ?? this.childRoutine,
       tags: tags ?? this.tags,
       gender: gender ?? this.gender,
       diagnosis: diagnosis ?? this.diagnosis,

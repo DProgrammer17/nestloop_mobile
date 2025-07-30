@@ -45,9 +45,14 @@ abstract class SvgAssets {
   static const invitationSentIcon = 'assets/svg/invitation_sent_icon.svg';
   static const aParentIcon = 'assets/svg/parent_icon.svg';
   static const aCareGiverIcon = 'assets/svg/caregiver_icon.svg';
+  static const categorySearchIcon = 'assets/svg/category_search_icon.svg';
 }
 
 abstract class LottieAssets{
   static const profilePendingAnimation = 'assets/lottie/profile_pending_animation.json';
   static const noDataFoundAnimation = 'assets/lottie/no_data_found.json';
+}
+
+abstract class JSONAssets{
+  static const childDiagnosis = 'assets/json/child_medical_diagnoses.json';
 }
