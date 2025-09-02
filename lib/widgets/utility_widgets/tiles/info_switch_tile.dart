@@ -13,6 +13,11 @@ class InfoSwitchTile extends StatelessWidget {
   final bool enabled;
   final ValueChanged onEnabled;
   final Color? backgroundColor;
+  final EdgeInsets? padding;
+  final TextStyle? titleStyle;
+  final TextStyle? subtitleStyle;
+  final Widget? bottomContent;
+  final double? bottomSpacing;
   const InfoSwitchTile({
     super.key,
     required this.leadingIcon,
@@ -21,40 +26,62 @@ class InfoSwitchTile extends StatelessWidget {
     required this.enabled,
     required this.onEnabled,
     this.backgroundColor,
+    this.padding,
+    this.titleStyle,
+    this.subtitleStyle,
+    this.bottomContent,
+    this.bottomSpacing,
   });
 
   @override
   Widget build(BuildContext context) {
     return WidgetCasing(
       backgroundColor: backgroundColor ?? AppColors.baseBackground,
-      padding:  EdgeInsets.fromLTRB(8.aw, 8.ah, 8.aw, 16.aw),
+      padding: padding ?? EdgeInsets.fromLTRB(8.aw, 16.ah, 8.aw, 16.ah),
       outerContent: const SizedBox.shrink(),
+      contentSpacing: 0,
       content: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          leadingIcon,
-          8.sbW,
           Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: AppTextStyles.h3Inter(
-                  context,
-                ).copyWith(fontWeight: FontWeight.w600),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  leadingIcon,
+                  12.sbW,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: titleStyle ?? AppTextStyles.h3Inter(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.w500),
+                      ),
+                      4.sbH,
+                      SizedBox(
+                        width: 220.aw,
+                        child: Text(
+                          subtitle,
+                          style: subtitleStyle ?? AppTextStyles.body2RegularInter(
+                            context,
+                          ).copyWith(color: AppColors.slateCharcoal60),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              4.sbH,
-              SizedBox(
-                width: 220.aw,
-                child: Text(
-                  subtitle,
-                  style: AppTextStyles.body2RegularInter(
-                    context,
-                  ).copyWith(color: AppColors.slateCharcoal60),
-                ),
-              ),
+              if(bottomContent != null)...[
+                (bottomSpacing ?? 10).sbH,
+                bottomContent!,
+              ],
             ],
           ),
           10.sbW,

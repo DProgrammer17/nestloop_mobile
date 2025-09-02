@@ -32,4 +32,13 @@ abstract class ApiPath{
   ///User APIs
   static const getUserInfo = '$baseUrl/api/users/me';
   static const deleteUserInfo = '$baseUrl/api/users/me';
+
+  ///Task APIs
+  static const createTasks = '$baseUrl/api/tasks';
+  static const getTasks = '$baseUrl/api/tasks';
+  static const getSpecificTask = '$baseUrl/api/tasks/single';
+  static const updateTasks = '$baseUrl/api/tasks/update';
+  static const markTaskComplete = '$baseUrl/api/tasks/complete';
+  static const deleteTask = '$baseUrl/api/tasks/delete';
+  static const cancelTask = '$baseUrl/api/tasks/cancel';
 }

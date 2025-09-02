@@ -6,6 +6,7 @@ import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
 import 'package:nest_loop_mobile/features/taskboard/state/taskboard_notifier.dart';
 import 'package:nest_loop_mobile/features/taskboard/widgets/empty_task_list_widget.dart';
+import 'package:nest_loop_mobile/features/taskboard/widgets/task_calender.dart';
 import 'package:nest_loop_mobile/utils/enums/date_filter_options.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/tiles/selector_tab_tile.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
@@ -101,28 +102,24 @@ class _TaskDateSelectionWidgetState
           ],
         ),
       ),
-      content: Column(
-        children: [
-          EmptyTakListWidget(),
-          SelectorTabTile(
-            indicatorPadding: EdgeInsets.symmetric(
-              vertical: 10.ah,
-              horizontal: 38.83.aw,
-            ),
-            selectedValue: ref
-                .watch(taskBoardNotifier)
-                .filterOptions
-                .displayString,
-            options: ref
-                .watch(taskBoardNotifier)
-                .filterList
-                .map((e) => e.displayString)
-                .toList(),
-            onTap: (value) => ref
-                .watch(taskBoardNotifier.notifier)
-                .selectorFilterOption(value.displayDateFilterOptions!),
-          ),
-        ],
+      content: ref.watch(taskBoardNotifier).taskList.isNotEmpty ?   TaskCalender() : EmptyTakListWidget(),
+      bottomContent: SelectorTabTile(
+        indicatorPadding: EdgeInsets.symmetric(
+          vertical: 10.ah,
+          horizontal: 38.83.aw,
+        ),
+        selectedValue: ref
+            .watch(taskBoardNotifier)
+            .filterOptions
+            .displayString,
+        options: ref
+            .watch(taskBoardNotifier)
+            .filterList
+            .map((e) => e.displayString)
+            .toList(),
+        onTap: (value) => ref
+            .watch(taskBoardNotifier.notifier)
+            .selectorFilterOption(value.displayDateFilterOptions!),
       ),
     );
   }

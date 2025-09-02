@@ -10,6 +10,7 @@ class AppScaffold extends StatelessWidget {
   final Widget body;
   final Widget? appBarContent;
   final Widget? appBarLeadingContent;
+  final ShapeBorder? appBarShape;
   final PreferredSizeWidget? appBarBottomContent;
   final Widget? bottomSheet;
   final FloatingActionButton? actionButton;
@@ -17,6 +18,8 @@ class AppScaffold extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? bottomPadding;
   final Color? backgroundColor;
+  final Color? bottomBackgroundColor;
+  final Color? appBackgroundColor;
   final bool centerTile;
   final bool extendBody;
   final bool extendBodyBehindAppBar;
@@ -49,10 +52,13 @@ class AppScaffold extends StatelessWidget {
     this.appBarContent,
     this.appBarLeadingContent,
     this.appBarBottomContent,
+    this.appBarShape,
     this.bottomSheet,
     this.actionButton,
     this.actionButtonLocation,
     this.backgroundColor,
+    this.appBackgroundColor,
+    this.bottomBackgroundColor,
     this.padding,
     this.bottomPadding,
     this.toolbarElevation,
@@ -99,7 +105,7 @@ class AppScaffold extends StatelessWidget {
                     toolbarHeight:
                         toolbarHeight ?? AppConstants.size.toolBarHeight,
                     backgroundColor:
-                        backgroundColor ??
+                        backgroundColor ?? appBackgroundColor ??
                         Theme.of(context).scaffoldBackgroundColor,
                     automaticallyImplyLeading: false,
                     elevation: toolbarElevation ?? 0,
@@ -107,6 +113,7 @@ class AppScaffold extends StatelessWidget {
                     centerTitle: centerTile,
                     title: appBarContent,
                     bottom: appBarBottomContent,
+                    shape: appBarShape,
                   ),
               body: SafeArea(
                 child: Padding(
@@ -121,7 +128,7 @@ class AppScaffold extends StatelessWidget {
                   children: [
                     Container(
                       color:
-                          backgroundColor ??
+                      bottomBackgroundColor ?? backgroundColor ??
                           Theme.of(context).scaffoldBackgroundColor,
                       child: bottomSheet,
                     ),

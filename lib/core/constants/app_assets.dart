@@ -5,6 +5,9 @@ abstract class AppAssets {
   static const onboardingImage4 = 'assets/png/onboarding_image_4.png';
   static const profileImagePlaceholder = 'assets/png/profile_image_placeholder.png';
   static const nestLoopLogoImage = 'assets/png/nestloop_logo.png';
+  static const trendingPostBackgroundImage = 'assets/png/trending_post_background.png';
+  static const homeBackgroundImage = 'assets/png/home_background_image.png';
+  static const clapReactionImage = 'assets/png/clap.png';
 }
 
 abstract class SvgAssets {
@@ -46,6 +49,10 @@ abstract class SvgAssets {
   static const aParentIcon = 'assets/svg/parent_icon.svg';
   static const aCareGiverIcon = 'assets/svg/caregiver_icon.svg';
   static const categorySearchIcon = 'assets/svg/category_search_icon.svg';
+  static const medicationIcon = 'assets/svg/medication_icon.svg';
+  static const therapyIcon = 'assets/svg/therapy_icon.svg';
+  static const appointmentIcon = 'assets/svg/appointment_icon.svg';
+  static const otherIcon = 'assets/svg/other_icon.svg';
 }
 
 abstract class LottieAssets{

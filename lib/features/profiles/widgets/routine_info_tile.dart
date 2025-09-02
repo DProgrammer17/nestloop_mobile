@@ -7,6 +7,7 @@ import 'package:nest_loop_mobile/network/api/child_profiles/request/create_child
 import 'package:nest_loop_mobile/utils/extensions/date_extensions.dart';
 import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/buttons/small_info_button.dart';
+import 'package:nest_loop_mobile/widgets/utility_widgets/tiles/time_pill.dart';
 import 'package:nest_loop_mobile/widgets/utility_widgets/widget_casing.dart';
 
 class RoutineInfoTile extends StatelessWidget {
@@ -24,19 +25,7 @@ class RoutineInfoTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 4.ah, horizontal: 8.aw),
-            decoration: BoxDecoration(
-              color: AppColors.slateCharcoal06,
-              borderRadius: BorderRadius.circular(16.ar),
-            ),
-            child: Text(
-              info.time.to12HourFormat(),
-              style: AppTextStyles.body1RegularInter(
-                context,
-              ).copyWith(fontWeight: FontWeight.w600),
-            ),
-          ),
+          TimePill(time: info.time),
           12.sbH,
           Row(
             mainAxisAlignment: MainAxisAlignment.start,

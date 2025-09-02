@@ -16,6 +16,11 @@ class GetUserProfileResponse {
         message: json["message"],
         data: json["data"] == null ? null : HomeData.fromJson(json["data"]),
       );
+
+  @override
+  String toString() {
+    return 'GetUserProfileResponse{status: $status, message: $message, data: $data}';
+  }
 }
 
 class HomeData {
@@ -44,7 +49,7 @@ class HomeData {
   });
 
   factory HomeData.fromJson(Map<String, dynamic> json) => HomeData(
-    id: json["id"],
+    id: json["_id"],
     fullName: json["fullName"],
     email: json["email"],
     postcode: json["postcode"],

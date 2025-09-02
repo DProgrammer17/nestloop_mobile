@@ -27,7 +27,6 @@ class UploadDocsTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return WidgetCasing(
       outerContent: TextFieldOuterTile(
-        isRequired: true,
         leading: SvgPicture.asset(SvgAssets.uploadedIcon, height: 20.ah),
         title: AppStrings.uploadDocuments,
       ),

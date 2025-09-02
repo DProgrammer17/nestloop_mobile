@@ -69,7 +69,7 @@ class AddCarerFirstPage extends ConsumerWidget {
                 height: 30.ar,
                 color: AppColors.slateCharcoalMain,
               ),
-              title: AppStrings.suggestedContacts,
+              title: AppStrings.suggestedProvider,
               titleStyle: AppTextStyles.body4RegularInter(
                 context,
               ).copyWith(fontWeight: FontWeight.w500),
@@ -128,19 +128,18 @@ class AddCarerFirstPage extends ConsumerWidget {
                                     .watch(addCarerNotifier)
                                     .providers
                                     .elementAt(index),
-                                selected:
+                                selected: ref
+                                    .watch(addCarerNotifier)
+                                    .selectedCareProvider != null &&
                                     (ref
                                                 .watch(addCarerNotifier)
                                                 .selectedCareProvider
-                                                ?.id ??
-                                            '')
-                                        .contains(
+                                                !.id!).contains(
                                           ref
                                                   .watch(addCarerNotifier)
                                                   .providers
                                                   .elementAt(index)
-                                                  .id ??
-                                              '',
+                                                  .id!,
                                         ) ??
                                     false,
                               ),

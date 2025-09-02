@@ -26,6 +26,9 @@ dependencies:
   cached_network_image: ^3.4.1
   lottie: ^3.3.1
   uuid: ^4.5.1
+  material_symbols_icons: ^4.2858.1
+  timeago: ^3.7.1
+  image_palette_extractor: ^1.0.1
 
 #  networking plugins
   dio: ^5.8.0+1

@@ -163,7 +163,7 @@ class CareTeamInfoTile extends StatelessWidget {
                               onTap: () =>
                                   AppPlatformBottomSheet.showAppBottomModalSheet(
                                     context: context,
-                                    content: ManageCareAccessWidget(
+                                    content: (context) => ManageCareAccessWidget(
                                       model: model,
                                     ),
                                   ),

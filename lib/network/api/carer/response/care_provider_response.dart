@@ -19,7 +19,7 @@ class CareProviderResponse {
 
   factory CareProviderResponse.fromJson(Map<String, dynamic> json) =>
       CareProviderResponse(
-        id: json["_id"],
+        id: json["id"],
         fullName: json["fullName"],
         email: json["email"],
         avatar: json["avatar"],
@@ -34,4 +34,5 @@ class CareProviderResponse {
             ? null
             : DateTime.parse(json["createdAt"]),
       );
+
 }

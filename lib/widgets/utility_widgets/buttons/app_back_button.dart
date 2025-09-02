@@ -7,7 +7,8 @@ import 'package:nest_loop_mobile/utils/extensions/navigation.dart';
 class AppBackButton extends StatelessWidget {
   final double? size;
   final VoidCallback? onTap;
-  const AppBackButton({super.key, this.size, this.onTap});
+  final Color? color;
+  const AppBackButton({super.key, this.size, this.onTap, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class AppBackButton extends StatelessWidget {
       child: Icon(
         CupertinoIcons.arrow_left,
         size: size ?? 35.ar,
-        color: AppColors.highlightCTAOrange,
+        color: color ?? AppColors.highlightCTAOrange,
       ),
     );
   }

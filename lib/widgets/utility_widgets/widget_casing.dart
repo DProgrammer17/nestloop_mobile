@@ -7,6 +7,7 @@ import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 class WidgetCasing extends StatelessWidget {
   final Widget? outerContent;
   final Widget? suffixOuterTitle;
+  final Widget? bottomContent;
   final Widget content;
   final String outerTitle;
   final String? fieldInfo;
@@ -14,6 +15,8 @@ class WidgetCasing extends StatelessWidget {
   final Color? backgroundColor;
   final double? borderRadius;
   final double? outerContentPadding;
+  final double? contentSpacing;
+  final double? bottomContentSpacing;
   const WidgetCasing({
     super.key,
     required this.content,
@@ -21,10 +24,13 @@ class WidgetCasing extends StatelessWidget {
     this.suffixOuterTitle,
     this.outerTitle = '',
     this.fieldInfo,
+    this.bottomContent,
     this.padding,
     this.backgroundColor,
     this.borderRadius,
     this.outerContentPadding,
+    this.contentSpacing,
+    this.bottomContentSpacing,
   });
 
   @override
@@ -57,8 +63,12 @@ class WidgetCasing extends StatelessWidget {
                   ],
                 ),
           ),
-          10.sbH,
+          (contentSpacing ?? 10).sbH,
           content,
+          if (bottomContent != null) ...[
+            (bottomContentSpacing ?? 10).sbH,
+            bottomContent!,
+          ],
           if (fieldInfo != null) ...[
             10.sbH,
             Text(

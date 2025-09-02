@@ -16,6 +16,20 @@ extension StringListExtension on String {
 
 extension StringDateExtension on String {
   DateTime get toDateYMD => DateFormat("yyyy-MM-dd").parse(this);
+
+  String dateTo12HourFormat() {
+    try {
+      // Parse the ISO 8601 string to DateTime
+      DateTime dateTime = DateTime.parse(this);
+
+      // Format to 12-hour time format
+      DateFormat formatter = DateFormat('h:mm a');
+      return formatter.format(dateTime);
+    } catch (e) {
+      // Return original string if parsing fails
+      return this;
+    }
+  }
 }
 
 extension StringEmailExtension on String {

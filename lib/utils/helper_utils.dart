@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nest_loop_mobile/utils/extensions/navigation.dart';
 
 abstract class HelperUtils {
@@ -41,4 +42,10 @@ abstract class HelperUtils {
       }),
     );
   }
+
+  static final noSymbolFormat = NumberFormat.currency(
+    locale: "en",
+    symbol: "",    // no currency symbol
+    decimalDigits: 2,
+  );
 }

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -11,11 +10,13 @@ import 'package:nest_loop_mobile/utils/extensions/widget_extensions.dart';
 abstract class AppPlatformBottomSheet {
   static void showAppBottomModalSheet({
     required BuildContext context,
-    required Widget content,
+    required WidgetBuilder content,
     bool showCloseButton = true,
     bool isDismissible = true,
     bool enableDrag = true,
     Color? backgroundColor,
+    double? borderRadius,
+    MainAxisSize axisSize = MainAxisSize.min,
   }) {
     if (Platform.isAndroid) {
       showMaterialModalBottomSheet(
@@ -26,6 +27,7 @@ abstract class AppPlatformBottomSheet {
         builder: (ctx) => SingleChildScrollView(
           controller: ModalScrollController.of(ctx),
           child: Column(
+            mainAxisSize: axisSize,
             children: [
               if (showCloseButton) ...[
                 12.sbH,
@@ -52,6 +54,9 @@ abstract class AppPlatformBottomSheet {
                 8.sbH,
               ],
               Container(
+                constraints: BoxConstraints(
+                  maxHeight: AppConstants.deviceHeight * 0.88,
+                ),
                 padding: EdgeInsets.symmetric(
                   vertical: 16.ah,
                   horizontal: 12.aw,
@@ -59,10 +64,10 @@ abstract class AppPlatformBottomSheet {
                 decoration: BoxDecoration(
                   color: AppColors.baseBackground,
                   borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(32.ar),
+                    top: Radius.circular((borderRadius ?? 32).ar),
                   ),
                 ),
-                child: content,
+                child: content.call(context),
               ),
             ],
           ),
@@ -77,6 +82,7 @@ abstract class AppPlatformBottomSheet {
       enableDrag: enableDrag,
       backgroundColor: backgroundColor ?? AppColors.overlayGrey.withOpacity(0.5),
       builder: (ctx) => Column(
+        mainAxisSize: axisSize,
         children: [
           if (showCloseButton) ...[
             12.sbH,
@@ -113,10 +119,10 @@ abstract class AppPlatformBottomSheet {
             decoration: BoxDecoration(
               color: AppColors.baseBackground,
               borderRadius: BorderRadius.vertical(
-                top: Radius.circular(32.ar),
+                top: Radius.circular((borderRadius ?? 32).ar),
               ),
             ),
-            child: content,
+            child: content.call(context),
           ),
         ],
       ),

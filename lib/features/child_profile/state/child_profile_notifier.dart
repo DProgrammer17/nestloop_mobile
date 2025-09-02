@@ -217,8 +217,7 @@ class ChildProfileNotifier extends Notifier<ChildProfileVM> {
     if (state.profileImage != null &&
         state.nameController.text.isNotEmpty &&
         state.dobController.text.isNotEmpty &&
-        state.gender.isNotBlank &&
-        state.childDocs.isNotEmpty) {
+        state.gender.isNotBlank) {
       if (state.childProfiles.any(
         (e) => e.name!.contains(state.nameController.text),
       )) {

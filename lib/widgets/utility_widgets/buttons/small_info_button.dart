@@ -9,12 +9,14 @@ class SmallInfoButton extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
   final Color? backgroundColor;
+  final TextStyle? textStyle;
   const SmallInfoButton({
     super.key,
     required this.leading,
     required this.title,
     required this.onTap,
     this.backgroundColor,
+    this.textStyle,
   });
 
   @override
@@ -35,7 +37,7 @@ class SmallInfoButton extends StatelessWidget {
               7.sbW,
               Text(
                 title,
-                style: AppTextStyles.body2RegularInter(context),
+                style: textStyle ?? AppTextStyles.body2RegularInter(context),
               )
             ],
           ),

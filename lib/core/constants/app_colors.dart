@@ -1,14 +1,15 @@
 import 'dart:ui';
 
-abstract class AppColors{
-///Slate color series
+import 'package:flutter/material.dart';
+
+abstract class AppColors {
+  ///Slate color series
   static const slateCharcoalMain = Color(0xFF2A2D34);
   static const slateCharcoal40 = Color(0xFFAAABAE);
   static const slateCharcoal06 = Color(0xFFF4F4F5);
   static const slateCharcoal20 = Color(0xFFD4D5D6);
   static const slateCharcoal60 = Color(0xFF7F8185);
   static const slateCharcoal80 = Color(0xFF55575D);
-
 
   ///Soft Support Series
   static const softSupportAccent2 = Color(0xFFECF1EB);
@@ -23,6 +24,7 @@ abstract class AppColors{
   static const baseBackground = Color(0xFFFDFDFC);
   static const primaryOrange = Color(0xFFF4B759);
   static const highlightCTAOrange = Color(0xFFF8845C);
+  static const highlightCTARed = Color(0xFFEF485A);
   static const secondaryPop = Color(0xFF9F6B99);
   static const neutralWhite = Color(0xFFFFFFFF);
   static const neutralGrey = Color(0xFF64748B);
@@ -35,4 +37,12 @@ abstract class AppColors{
   static const backgroundGrey = Color(0xFFFBFBFB);
   static const overlayGrey = Color(0xFF2A2D34);
   static const textWhite = Color(0xFFF5F5F5);
+  static const basePlum = Color(0xFFF87171);
+  static const indigo = Color(0xFF6366F1);
+  static const violet = Color(0xFFA78BFA);
+
+  ///Linear Gradients
+  static const sosGradient = LinearGradient(
+    colors: [Color(0xFFF8845C), Color(0xFFE55422)],
+  );
 }

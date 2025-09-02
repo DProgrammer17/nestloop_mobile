@@ -11,7 +11,7 @@ import 'package:nest_loop_mobile/network/net_utils/headers.dart';
 abstract class UserApi {
   static final _tokenProvider = AppNetworkProvider();
 
-  static Future<BaseResponse<GetUserProfileResponse>> getUserData({
+  static Future<BaseResponse<HomeData>> getUserData({
     required String authToken,
   }) async {
     final response = await _tokenProvider.call(
@@ -21,13 +21,14 @@ abstract class UserApi {
     );
 
     final res = processData(
-      (p0) => BaseResponse<GetUserProfileResponse>.fromJson(
+          (p0) => BaseResponse<HomeData>.fromJson(
         p0,
-        (json) =>
-            GetUserProfileResponse.fromJson(json! as Map<String, dynamic>),
+            (json) =>
+                HomeData.fromJson(json! as Map<String, dynamic>),
       ),
       response,
     );
+
     res.either(
       (left) => throw BaseError(
         error: res.left.error,

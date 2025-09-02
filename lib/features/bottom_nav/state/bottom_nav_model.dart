@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nest_loop_mobile/features/communities/ui/communities_page.dart';
 import 'package:nest_loop_mobile/features/home/ui/home_page.dart';
 import 'package:nest_loop_mobile/features/profiles/ui/profiles_page.dart';
 
@@ -11,7 +12,7 @@ class BottomNavModel{
     this.navPages = const [
       HomePage(),
       ProfilesPage(),
-      SizedBox(),
+      CommunitiesPage(),
       SizedBox(),
       SizedBox(),
     ],

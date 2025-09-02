@@ -52,6 +52,8 @@ class LoginNotifier extends Notifier<LoginModel> {
 
         if (context.mounted) {
           state = state.copyWith(loginResponse: () => response.data);
+        //  print(response);
+
           context.pushAndPopAllSuper(AppBottomNav());
         }
       } on BaseError catch (e) {

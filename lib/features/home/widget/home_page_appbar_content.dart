@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nest_loop_mobile/core/constants/app_assets.dart';
+import 'package:nest_loop_mobile/core/constants/app_colors.dart';
 import 'package:nest_loop_mobile/core/constants/app_constants.dart';
 import 'package:nest_loop_mobile/core/constants/app_strings.dart';
 import 'package:nest_loop_mobile/core/constants/app_textsyles.dart';
@@ -16,25 +18,43 @@ class HomePageAppBarContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        16.sbH,
-        AppNetworkImage(
-          image: imageUrl,
-          useBorderRadius: true,
-          radius: 16.ar,
-          height: 48.ah,
-          width: 48.aw,
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        image: DecorationImage(
+          image: AssetImage(AppAssets.homeBackgroundImage), // local asset
+          fit: BoxFit.cover, // how the image should be fitted
         ),
-        10.sbH,
-        Text(
-          AppStrings.welcomeName(name),
-          style: AppTextStyles.h1Satoshi(context).copyWith(fontSize: 22.asp),
-        ),
-        16.sbH,
-      ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          16.sbH,
+          AppNetworkImage(
+            image: imageUrl,
+            useBorderRadius: true,
+            radius: 16.ar,
+            height: 48.ah,
+            width: 48.aw,
+          ),
+          10.sbH,
+          Text(
+            AppStrings.welcomeBackSmall,
+            style: AppTextStyles.h1Satoshi(
+              context,
+            ).copyWith(color: AppColors.slateCharcoal40),
+          ),
+          Text(
+            name,
+            style: AppTextStyles.h1Satoshi(
+              context,
+            ).copyWith(color: AppColors.neutralWhite, fontSize: 28.asp),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -190,7 +190,7 @@ class AddCarerSetPermissions extends ConsumerWidget {
                     child: SelectorTabTile(
                       selectedValue: ref
                           .watch(addCarerNotifier)
-                          .selectedAccessType,
+                          .selectedType,
                       options: ref.watch(addCarerNotifier).accessTypes,
                       onTap: (value) => ref
                           .watch(addCarerNotifier.notifier)

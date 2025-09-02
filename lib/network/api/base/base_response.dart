@@ -38,4 +38,9 @@ class BaseResponse<T> {
       data: parsedData,
     );
   }
+
+  @override
+  String toString() {
+    return 'BaseResponse{message: $message, status: $status, data: $data}';
+  }
 }

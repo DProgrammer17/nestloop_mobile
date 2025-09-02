@@ -80,6 +80,7 @@ class AddCarerNotifier extends Notifier<AddCarerModel> {
   }
 
   void selectorUpdateAccessType(String type) {
+    print(type);
     switch (type) {
       case AppStrings.noAccess:
         state = state.copyWith(
@@ -264,6 +265,7 @@ class AddCarerNotifier extends Notifier<AddCarerModel> {
       state = state.copyWith(
         gettingCareProviders: false,
         providers: response.data ?? [],
+        selectedCareProvider: ()=> null,
       );
     } on BaseError catch (e) {
       state = state.copyWith(gettingCareProviders: false);

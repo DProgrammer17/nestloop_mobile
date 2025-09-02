@@ -3,7 +3,7 @@ import 'package:nest_loop_mobile/network/net_utils/enums/user_roles.dart';
 class LoginResponse {
   final String? token;
   final User? user;
-  final bool isNewUser;
+  final bool? isNewUser;
 
   LoginResponse({
     this.token,
@@ -16,6 +16,13 @@ class LoginResponse {
     isNewUser: json["isNewUser"],
     user: json["user"] == null ? null : User.fromJson(json["user"]),
   );
+
+  @override
+  String toString() {
+    return 'LoginResponse{token: $token, user: $user, isNewUser: $isNewUser}';
+  }
+
+
 }
 
 class User {
@@ -55,4 +62,11 @@ class User {
     createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
     updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
   );
+
+  @override
+  String toString() {
+    return 'User{id: $id, fullName: $fullName, email: $email, roles: $roles, isEmailVerified: $isEmailVerified, avatar: $avatar, createdAt: $createdAt, updatedAt: $updatedAt}';
+  }
+
+
 }

@@ -216,3 +216,64 @@ extension TimeStringExtension on String {
     }
   }
 }
+
+extension DateTimeFormatter on DateTime {
+  String toHumanFormat() {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final dateOnly = DateTime(year, month, day);
+    final diff = dateOnly.difference(today).inDays;
+
+    // Day prefix
+    final dayPrefix = switch (diff) {
+      0 => 'Today',
+      1 => 'Tomorrow',
+      -1 => 'Yesterday',
+      _ => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][weekday - 1],
+    };
+
+    // Month name
+    final monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month - 1];
+
+    // Time format
+    final hour12 = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+    final period = hour < 12 ? 'am' : 'pm';
+    final timeStr = minute == 0 ? '$hour12$period' : '$hour12:${minute.toString().padLeft(2, '0')}$period';
+
+    return '$dayPrefix, $monthName $day, $year · $timeStr';
+  }
+
+  String toHuman12HourFormat() {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final dateOnly = DateTime(year, month, day);
+    final diff = dateOnly.difference(today).inDays;
+
+    // Day prefix
+    final dayPrefix = switch (diff) {
+      0 => 'Today',
+      1 => 'Tomorrow',
+      -1 => 'Yesterday',
+      _ => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][weekday - 1],
+    };
+
+    // Month name
+    final monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][month - 1];
+
+    // Time format
+    final hour12 = hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour);
+    final period = hour < 12 ? 'AM' : 'PM';
+    final timeStr = minute == 0 ? '$hour12$period' : '$hour12:${minute.toString().padLeft(2, '0')} $period';
+
+    String result = '';
+    if(dayPrefix == 'Today'||dayPrefix == 'Tomorrow'||dayPrefix == 'Yesterday'){
+      result ='$dayPrefix, $timeStr';
+      return result;
+    }
+
+    result = '$monthName $day, $year · $timeStr';
+    return result;
+  }
+}

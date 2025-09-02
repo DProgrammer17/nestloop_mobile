@@ -10,6 +10,8 @@ class AppDropDownField extends StatefulWidget {
   final double? height;
   final Function(String) onChanged;
   final TextEditingController? controller;
+  final TextStyle? style;
+  final TextStyle? itemStyle;
   const AppDropDownField({
     super.key,
     this.controller,
@@ -18,6 +20,8 @@ class AppDropDownField extends StatefulWidget {
     required this.onChanged,
     this.width,
     this.height,
+    this.style,
+    this.itemStyle,
   });
 
   @override
@@ -58,11 +62,11 @@ class _AppDropDownFieldState extends State<AppDropDownField> {
                   decoration: InputDecoration(
                     labelText:
                     selectedValue == widget.list[0] ? "" : widget.labelText,
-                    floatingLabelStyle: AppTextStyles.h3Inter(context).copyWith(
+                    floatingLabelStyle: widget.style ?? AppTextStyles.h3Inter(context).copyWith(
                       fontWeight: FontWeight.w400,
                       color: AppColors.slateCharcoal80,
                     ),
-                    labelStyle:  AppTextStyles.h3Inter(context).copyWith(
+                    labelStyle:  widget.style ?? AppTextStyles.h3Inter(context).copyWith(
                       fontWeight: FontWeight.w400,
                       color: AppColors.slateCharcoal80,
                     ),
@@ -72,7 +76,7 @@ class _AppDropDownFieldState extends State<AppDropDownField> {
                     ),
                     border: InputBorder.none,
                   ),
-                  style: AppTextStyles.h3Inter(context).copyWith(
+                  style: widget.style ??  AppTextStyles.h3Inter(context).copyWith(
                     fontWeight: FontWeight.w400,
                     color: AppColors.slateCharcoal80,
                   ),
@@ -83,7 +87,7 @@ class _AppDropDownFieldState extends State<AppDropDownField> {
                       child: Text(
                         e,
                         softWrap: true,
-                        style: AppTextStyles.h3Inter(context).copyWith(
+                        style: widget.itemStyle ?? AppTextStyles.h3Inter(context).copyWith(
                           fontWeight: FontWeight.w400,
                           color: AppColors.slateCharcoal80,
                         ),
